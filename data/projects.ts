@@ -15,11 +15,29 @@ export const projects: Project[] = [
     summary: "Modern cephe tasarımı ve yüksek yapı kalitesiyle öne çıkan konut projesi.",
     description:
       "Tekin Residence, modern mimari çizgileri güçlü mühendislik altyapısıyla bir araya getiren bir konut projesidir. Proje sürecinde statik güvenlik, malzeme kalitesi ve enerji verimliliği bir arada değerlendirilmiştir. // TODO: Replace with real company information.",
-    coverImage: "/images/projects/project-1/cover.jpg",
+    coverImage: "/tekin-residance-hero.png",
+    coverImageObjectPosition: "center 42%",
     images: [
-      { src: "/images/projects/project-1/01.jpg", alt: "Tekin Residence dış cephe görünümü" },
-      { src: "/images/projects/project-1/02.jpg", alt: "Tekin Residence giriş alanı" },
-      { src: "/images/projects/project-1/03.jpg", alt: "Tekin Residence gece görünümü" },
+      {
+        src: "/tekin-residence-1.png",
+        alt: "Tekin Residence gün batımında cephe görünümü",
+        objectPosition: "center 45%",
+      },
+      {
+        src: "/tekin-residence-2.png",
+        alt: "Tekin Residence giriş holü ve peyzaj detayı",
+        objectPosition: "65% 50%",
+      },
+      {
+        src: "/tekin-residence-3.png",
+        alt: "Tekin Residence deniz manzaralı köşe cephesi",
+        objectPosition: "40% 42%",
+      },
+      {
+        src: "/tekin-residence-4.png",
+        alt: "Tekin Residence tepe konumundan gece görünümü",
+        objectPosition: "50% 40%",
+      },
     ],
     area: "XXXX m²",
     client: "Özel Yatırımcı",
@@ -36,7 +54,8 @@ export const projects: Project[] = [
     summary: "Geniş yaşam alanları ve minimalist mimarisiyle tasarlanmış müstakil villa.",
     description:
       "Modern Villa projesi, açık plan yaşam alanları ve doğal malzeme kullanımıyla dikkat çeken bir villa uygulamasıdır. Statik ve mimari projeler birlikte geliştirilerek yapının uzun ömürlü olması hedeflenmiştir. // TODO: Replace with real company information.",
-    coverImage: "/images/projects/project-2/cover.jpg",
+    coverImage: "/modern-villa.png",
+    coverImageObjectPosition: "60% 45%",
     images: [
       { src: "/images/projects/project-2/01.jpg", alt: "Modern Villa dış görünüm" },
       { src: "/images/projects/project-2/02.jpg", alt: "Modern Villa bahçe alanı" },

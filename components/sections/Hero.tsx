@@ -19,12 +19,12 @@ export default function Hero() {
     <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-charcoal-dark sm:min-h-[100vh]">
       <div className="absolute inset-0">
         <ImageWithFallback
-          src="/images/hero.jpg"
-          alt="Ömer Tekin Mühendislik ve İnşaat tarafından uygulanan bir yapı projesi"
+          src="/hero-project.png"
+          alt="Ömer Tekin Mühendislik ve İnşaat tarafından uygulanan, deniz manzaralı modern bir konut projesi"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[80%_45%] sm:object-[70%_45%] lg:object-center"
           fallbackLabel="Proje Görseli"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />

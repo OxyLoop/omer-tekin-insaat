@@ -3,6 +3,8 @@ export type ProjectStatus = "completed" | "ongoing";
 export interface ProjectImage {
   src: string;
   alt: string;
+  /** CSS object-position value (ör. "60% 40%") — ana obje kadraj dışına taşarsa kullanılır. */
+  objectPosition?: string;
 }
 
 export interface Project {
@@ -16,6 +18,8 @@ export interface Project {
   description: string;
   summary: string;
   coverImage: string;
+  /** Kapak görseli için CSS object-position değeri (ör. "center 40%"). */
+  coverImageObjectPosition?: string;
   images: ProjectImage[];
   area?: string;
   client?: string;

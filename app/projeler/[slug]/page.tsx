@@ -54,6 +54,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             priority
             sizes="100vw"
             className="object-cover"
+            style={project.coverImageObjectPosition ? { objectPosition: project.coverImageObjectPosition } : undefined}
             fallbackLabel="Proje Görseli"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/10" />

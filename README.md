@@ -63,19 +63,25 @@ değişiklik gerekmez. Logo; navbar (`components/layout/Navbar.tsx`) ve footer
 
 ## 4. Proje Görsellerini Ekleme
 
-Görseller şu klasör yapısında beklenir:
+Sabit bölüm görselleri doğrudan `public/` kök klasöründe, isimleriyle
+kullanılır ve ilgili bileşende sabit olarak tanımlıdır:
 
-```
-public/images/hero.jpg
-public/images/about.jpg
-public/images/quality.jpg
-public/images/projects/project-1/cover.jpg
-public/images/projects/project-1/01.jpg
-public/images/projects/project-1/02.jpg
-...
-```
+| Dosya | Kullanıldığı yer |
+|---|---|
+| `public/hero-project.png` | Ana sayfa hero arka planı ([components/sections/Hero.tsx](components/sections/Hero.tsx)) |
+| `public/corporate-engineering.png` | "Biz Kimiz?" önizlemesi ve Hakkımızda sayfası ([components/sections/AboutPreview.tsx](components/sections/AboutPreview.tsx), [app/hakkimizda/page.tsx](app/hakkimizda/page.tsx)) |
+| `public/engineering-quality.png` | "Her detayda mühendislik..." bölümü ([components/sections/QualityStatement.tsx](components/sections/QualityStatement.tsx)) |
 
-**Önemli:** Görsel dosyaları henüz eklenmemiş olsa bile site bozulmaz. Her
+Bu görselleri değiştirmek isterseniz, aynı dosya adıyla `public/` klasörüne
+üzerine yazmanız yeterlidir (veya ilgili bileşendeki `src` değerini
+güncelleyin).
+
+Proje görselleri ise `data/projects.ts` içindeki her projenin `coverImage` ve
+`images` alanlarında tanımlıdır (bkz. bölüm 5). Örnek olarak Tekin Residence
+projesi `public/tekin-residance-hero.png` (kapak) ve
+`public/tekin-residence-1.png` … `4.png` (galeri) dosyalarını kullanır.
+
+**Önemli:** Bir görsel dosyası henüz eklenmemiş olsa bile site bozulmaz. Her
 görsel, `components/ui/ImageWithFallback.tsx` bileşeni üzerinden gösterilir;
 dosya bulunamazsa otomatik olarak zarif bir yer tutucu (placeholder) görsel
 gösterilir. Gerçek görselleri eklediğinizde herhangi bir kod değişikliği
@@ -84,6 +90,11 @@ gerekmeden görseller otomatik olarak devreye girer.
 Önerilen görsel oranları:
 - Hero / kapak görselleri: geniş (16:9 veya daha geniş)
 - Proje galeri görselleri: dikey/kare (4:5)
+
+Bir görselde ana obje (bina, obje vb.) kırpma sırasında kadraj dışına
+taşıyorsa, `data/projects.ts` içinde ilgili görsele `objectPosition: "60% 40%"`
+gibi bir CSS `object-position` değeri ekleyerek odak noktasını ayarlayabilirsiniz
+(kapak görseli için `coverImageObjectPosition` alanını kullanın).
 
 ## 5. projects.ts İçine Yeni Proje Ekleme
 

@@ -32,6 +32,7 @@ export default function ProjectGallery({ images, projectName }: ProjectGalleryPr
               fill
               sizes="(min-width: 1024px) 33vw, 50vw"
               className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
               fallbackLabel="Proje Görseli"
             />
             <span className="absolute inset-0 bg-charcoal/0 transition-colors duration-300 group-hover:bg-charcoal/20" />

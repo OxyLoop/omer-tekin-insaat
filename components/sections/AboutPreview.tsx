@@ -36,11 +36,11 @@ export default function AboutPreview() {
         <Reveal delay={0.15}>
           <div className="relative aspect-4/5 w-full overflow-hidden border border-line lg:aspect-auto lg:h-full">
             <ImageWithFallback
-              src="/images/about.jpg"
-              alt="Ömer Tekin Mühendislik ve İnşaat ekibi saha çalışmasında"
+              src="/corporate-engineering.png"
+              alt="Ömer Tekin Mühendislik ve İnşaat logolu baret, inşaat sahasında proje çizimleriyle birlikte"
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+              className="object-cover object-[55%_65%]"
               fallbackLabel="Kurumsal Görsel"
             />
           </div>

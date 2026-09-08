@@ -26,6 +26,7 @@ export default function ProjectCard({ project, size = "normal", priority = false
             priority={priority}
             sizes={size === "large" ? "100vw" : "(min-width: 1024px) 50vw, 100vw"}
             className="object-cover"
+            style={project.coverImageObjectPosition ? { objectPosition: project.coverImageObjectPosition } : undefined}
             fallbackLabel="Proje Görseli"
           />
         </div>

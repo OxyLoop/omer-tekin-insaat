@@ -6,14 +6,15 @@ export default function QualityStatement() {
     <section className="relative overflow-hidden bg-charcoal-dark">
       <div className="absolute inset-0">
         <ImageWithFallback
-          src="/images/quality.jpg"
-          alt="İnşaat sahasında mühendislik kontrolü"
+          src="/engineering-quality.png"
+          alt="Gün batımında inşaat sahasında vinç, iskelet halindeki bina ve mühendislik çizimleri"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[75%_45%]"
           fallbackLabel="Mühendislik Görseli"
         />
-        <div className="absolute inset-0 bg-charcoal/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/75 to-charcoal/20" />
+        <div className="absolute inset-0 bg-charcoal/25" />
       </div>
 
       <div className="container-site relative section-y">
