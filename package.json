@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "generate:images": "node scripts/generate-site-images.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "framer-motion": "^13.2.0",
@@ -21,10 +20,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
-    "openai": "^7.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

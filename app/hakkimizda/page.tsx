@@ -3,6 +3,7 @@ import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { aboutPage, companyValues, founder } from "@/data/company";
+import { aboutStats } from "@/data/stats";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
@@ -54,6 +55,23 @@ export default function HakkimizdaPage() {
       </section>
 
       <section className="border-t border-y border-line bg-charcoal-dark">
+        <div className="container-site">
+          <div className="grid grid-cols-1 divide-y divide-line border-x border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {aboutStats.map((stat, index) => (
+              <Reveal key={stat.id} delay={index * 0.08} className="px-8 py-12 text-center">
+                <p className="text-4xl font-semibold tracking-tight text-offwhite sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-3 text-xs tracking-[0.15em] text-muted uppercase sm:text-sm">
+                  {stat.label}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-y">
         <div className="container-site">
           <Reveal>
             <div className="flex flex-col gap-6 border border-line p-8 sm:flex-row sm:items-start sm:gap-10 sm:p-10">

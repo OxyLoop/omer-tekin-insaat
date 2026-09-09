@@ -76,22 +76,18 @@ export default function Footer() {
             İletişim
           </h3>
           <ul className="flex flex-col gap-3 text-sm text-muted">
-            {contactInfo.phone && contactInfo.phoneDisplay && (
-              <li>
-                <a href={`tel:${contactInfo.phone}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                  {contactInfo.phoneDisplay}
-                </a>
-              </li>
-            )}
-            {contactInfo.email && (
-              <li>
-                <a href={`mailto:${contactInfo.email}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                  {contactInfo.email}
-                </a>
-              </li>
-            )}
+            <li>
+              <a href={`tel:${contactInfo.phone}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
+                <Phone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                {contactInfo.phoneDisplay}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${contactInfo.email}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
+                <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                {contactInfo.email}
+              </a>
+            </li>
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
               <span>{contactInfo.address}</span>

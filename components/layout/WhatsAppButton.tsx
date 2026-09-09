@@ -4,14 +4,9 @@ import { MessageCircle } from "lucide-react";
 import { getWhatsAppLink } from "@/data/contact";
 
 export default function WhatsAppButton() {
-  const href = getWhatsAppLink();
-
-  // TODO: Gerçek WhatsApp numarası data/contact.ts içine eklenince buton otomatik görünür.
-  if (!href) return null;
-
   return (
     <a
-      href={href}
+      href={getWhatsAppLink()}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp üzerinden iletişime geçin"

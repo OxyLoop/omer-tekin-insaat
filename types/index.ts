@@ -48,11 +48,10 @@ export interface CompanyValue {
 }
 
 export interface ContactInfo {
-  /** Gerçek numara netleşene kadar null — bileşenler bu alanları otomatik gizler. */
-  phone: string | null;
-  phoneDisplay: string | null;
-  whatsapp: string | null;
-  email: string | null;
+  phone: string;
+  phoneDisplay: string;
+  whatsapp: string;
+  email: string;
   instagram: string;
   instagramHandle: string;
   address: string;

@@ -20,8 +20,7 @@ içeriğini güncelleyebilmesi için hazırlanmıştır.
 8. [Formspree (İletişim Formu) Yapılandırması](#8-formspree-iletişim-formu-yapılandırması)
 9. [GitHub Pages'e Deploy Etme](#9-github-pagese-deploy-etme)
 10. [NEXT_PUBLIC_BASE_PATH Nasıl Çalışır?](#10-next_public_base_path-nasıl-çalışır)
-11. [OpenAI ile Eksik Proje Görsellerini Üretme](#11-openai-ile-eksik-proje-görsellerini-üretme)
-12. [Proje Yapısı](#12-proje-yapısı)
+11. [Proje Yapısı](#11-proje-yapısı)
 
 ---
 
@@ -238,51 +237,7 @@ Kod tarafında bu değer `lib/paths.ts` içindeki `getAssetPath()` fonksiyonu ve
 `next.config.ts` içindeki `basePath` ayarı ile tüm sayfa linklerine, statik
 dosyalara ve görsellere otomatik olarak uygulanır.
 
-## 11. OpenAI ile Eksik Proje Görsellerini Üretme
-
-`data/projects.ts` içinde henüz gerçek görseli olmayan projeler (ör. Merkez
-Konutları, Park Yaşam, Ofis Projesi, Yeni Yaşam Konutları) için `PlaceholderImage`
-yer tutucusu yerine gerçekçi mimari fotoğraflar üretmek isterseniz,
-`scripts/generate-site-images.mjs` scripti kullanılabilir. Bu script **yalnızca
-yerel makinenizde, elle çalıştırılır** — canlı site hiçbir zaman OpenAI API'sine
-istek atmaz.
-
-1. `.env.local` dosyanıza gerçek anahtarınızı ekleyin (asla commit etmeyin):
-
-   ```
-   OPENAI_API_KEY=sk-...
-   ```
-
-2. Önce ne üretileceğini görmek için kuru çalıştırma yapın:
-
-   ```bash
-   npm run generate:images -- --dry-run
-   ```
-
-3. Gerçek üretimi başlatın:
-
-   ```bash
-   npm run generate:images
-   ```
-
-   Script idempotenttir: `public/generated/...` altında zaten var olan bir
-   dosyayı bir daha üretmez (API maliyetini önler). Belirli bir projeyi
-   yeniden üretmek isterseniz `--force`, yalnızca belirli proje(ler)i
-   işlemek isterseniz `--only=proje-slug1,proje-slug2` bayraklarını kullanın.
-
-4. Üretim tamamlandığında sonuçlar `data/generated-images.json` içine
-   kaydedilir (hangi dosyanın hangi prompt/boyut/kalite ile üretildiğinin
-   kaydı — ileride yeniden üretim için).
-
-5. Üretilen dosyaları `data/projects.ts` içindeki ilgili projenin
-   `coverImage` / `images` alanlarına bağlayın (script bu adımı otomatik
-   yapmaz, çünkü hangi görselin hangi projeye ait olduğuna karar vermek
-   editoryal bir tercihtir).
-
-**Zaten manuel olarak eklediğiniz gerçek fotoğraflar (Tekin Residence,
-Modern Villa kapak görseli vb.) bu script tarafından asla değiştirilmez.**
-
-## 12. Proje Yapısı
+## 11. Proje Yapısı
 
 ```
 app/                  Next.js App Router sayfaları (rotalar)
