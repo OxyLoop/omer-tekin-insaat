@@ -16,13 +16,15 @@ export default function Footer() {
       <div className="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-[1.3fr_0.9fr_0.9fr_1.1fr] lg:gap-8">
         <div>
           <Link href="/" className="flex items-center gap-3">
-            <Image
-              src={getAssetPath("/logo.png")}
-              alt="Ömer Tekin Mühendislik ve İnşaat logosu"
-              width={48}
-              height={48}
-              className="h-11 w-11 object-contain"
-            />
+            <span className="flex h-11 w-11 items-center justify-center rounded-md bg-[#1a1b1e] p-1.5">
+              <Image
+                src={getAssetPath("/logo.png")}
+                alt="Ömer Tekin Mühendislik ve İnşaat logosu"
+                width={48}
+                height={48}
+                className="h-full w-full object-contain"
+              />
+            </span>
             <span className="flex flex-col leading-tight">
               <span className="text-sm font-semibold tracking-wide text-offwhite">
                 ÖMER TEKİN

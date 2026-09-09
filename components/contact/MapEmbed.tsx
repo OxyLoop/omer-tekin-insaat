@@ -13,8 +13,8 @@ export default function MapEmbed({ className, title = "Konum haritası" }: MapEm
         title={title}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        className="h-full w-full grayscale-[40%] contrast-[1.05] invert-[92%] hue-rotate-180"
-        style={{ border: 0 }}
+        className="h-full w-full"
+        style={{ border: 0, filter: "var(--raw-map-filter)" }}
       />
     </div>
   );

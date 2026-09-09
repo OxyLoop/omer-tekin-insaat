@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import StructuredData from "@/components/seo/StructuredData";
+import ThemeScript from "@/components/theme/ThemeScript";
 import { siteUrl, getAssetPath } from "@/lib/paths";
 
 const manrope = Manrope({
@@ -37,8 +38,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" className={`${manrope.variable} h-full antialiased`}>
+    <html lang="tr" className={`${manrope.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col bg-charcoal text-offwhite">
+        <ThemeScript />
         <StructuredData />
         <Navbar />
         <main className="flex-1">{children}</main>

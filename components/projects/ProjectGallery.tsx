@@ -35,7 +35,7 @@ export default function ProjectGallery({ images, projectName }: ProjectGalleryPr
               style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
               fallbackLabel="Proje Görseli"
             />
-            <span className="absolute inset-0 bg-charcoal/0 transition-colors duration-300 group-hover:bg-charcoal/20" />
+            <span className="absolute inset-0 bg-ink/0 transition-colors duration-300 group-hover:bg-ink/20" />
           </button>
         ))}
       </div>

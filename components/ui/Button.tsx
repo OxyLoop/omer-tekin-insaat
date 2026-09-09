@@ -3,9 +3,16 @@ import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ButtonVariant = "primary" | "secondary";
+/**
+ * "surface" (varsayılan): sayfa arayüzünde kullanılır, temayla birlikte
+ * değişir. "ink": bir mimari fotoğrafın üzerinde kullanılır, temadan
+ * bağımsız olarak her zaman aynı (sabit) renkleri kullanır — bkz. Hero.
+ */
+type ButtonTone = "surface" | "ink";
 
 interface BaseProps {
   variant?: ButtonVariant;
+  tone?: ButtonTone;
   showArrow?: boolean;
   className?: string;
   children: React.ReactNode;
@@ -28,15 +35,23 @@ type ButtonProps = ButtonAsLink | ButtonAsButton;
 const baseStyles =
   "group inline-flex items-center justify-center gap-2 border px-7 py-3.5 text-sm font-medium tracking-wide transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2";
 
-const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "border-offwhite bg-offwhite text-charcoal hover:bg-transparent hover:text-offwhite",
-  secondary:
-    "border-line-strong bg-transparent text-offwhite hover:border-offwhite",
+const variantStyles: Record<ButtonTone, Record<ButtonVariant, string>> = {
+  surface: {
+    primary:
+      "border-offwhite bg-offwhite text-charcoal hover:bg-transparent hover:text-offwhite",
+    secondary:
+      "border-line-strong bg-transparent text-offwhite hover:border-offwhite",
+  },
+  ink: {
+    primary:
+      "border-on-ink bg-on-ink text-ink hover:bg-transparent hover:text-on-ink",
+    secondary:
+      "border-ink-line-strong bg-transparent text-on-ink hover:border-on-ink",
+  },
 };
 
 export default function Button(props: ButtonProps) {
-  const { variant = "primary", showArrow = false, className, children } = props;
+  const { variant = "primary", tone = "surface", showArrow = false, className, children } = props;
   const content = (
     <>
       <span>{children}</span>
@@ -57,14 +72,14 @@ export default function Button(props: ButtonProps) {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(baseStyles, variantStyles[variant], className)}
+          className={cn(baseStyles, variantStyles[tone][variant], className)}
         >
           {content}
         </a>
       );
     }
     return (
-      <Link href={href} className={cn(baseStyles, variantStyles[variant], className)}>
+      <Link href={href} className={cn(baseStyles, variantStyles[tone][variant], className)}>
         {content}
       </Link>
     );
@@ -78,7 +93,7 @@ export default function Button(props: ButtonProps) {
       disabled={disabled}
       className={cn(
         baseStyles,
-        variantStyles[variant],
+        variantStyles[tone][variant],
         disabled && "cursor-not-allowed opacity-50",
         className,
       )}

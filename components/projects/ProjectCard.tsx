@@ -30,14 +30,14 @@ export default function ProjectCard({ project, size = "normal", priority = false
             fallbackLabel="Proje Görseli"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
 
         <span
           className={cn(
             "absolute top-5 left-5 border px-3 py-1 text-[11px] font-medium tracking-[0.15em] uppercase backdrop-blur-sm",
             project.status === "completed"
-              ? "border-line-strong bg-charcoal/50 text-offwhite"
-              : "border-offwhite/40 bg-offwhite/10 text-offwhite",
+              ? "border-ink-line-strong bg-ink/50 text-on-ink"
+              : "border-on-ink/40 bg-on-ink/10 text-on-ink",
           )}
         >
           {statusLabels[project.status]}
@@ -45,15 +45,15 @@ export default function ProjectCard({ project, size = "normal", priority = false
 
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-7">
           <div className="transition-transform duration-300 group-hover:-translate-y-1">
-            <h3 className="text-xl font-semibold tracking-tight text-offwhite sm:text-2xl">
+            <h3 className="text-xl font-semibold tracking-tight text-on-ink sm:text-2xl">
               {project.name}
             </h3>
-            <p className="mt-1 text-sm text-stone">
+            <p className="mt-1 text-sm text-on-ink-soft">
               {project.location} — {project.year}
             </p>
           </div>
           <ArrowUpRight
-            className="h-6 w-6 shrink-0 text-offwhite opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+            className="h-6 w-6 shrink-0 text-on-ink opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
             aria-hidden="true"
           />
         </div>

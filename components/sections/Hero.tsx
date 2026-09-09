@@ -16,7 +16,7 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-charcoal-dark sm:min-h-[100vh]">
+    <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-ink-strong sm:min-h-[100vh]">
       <div className="absolute inset-0">
         <ImageWithFallback
           src="/hero-project.png"
@@ -27,8 +27,8 @@ export default function Hero() {
           className="object-cover object-[80%_45%] sm:object-[70%_45%] lg:object-center"
           fallbackLabel="Proje Görseli"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-charcoal/20" />
-        <div className="absolute inset-0 bg-charcoal/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" />
+        <div className="absolute inset-0 bg-ink/20" />
       </div>
 
       <div className="container-site relative z-10 flex w-full flex-col gap-14 pt-32 pb-16 sm:pb-20 lg:pb-24">
@@ -37,9 +37,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={transition(0)}
-            className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-stone uppercase"
+            className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-on-ink-soft uppercase"
           >
-            <span className="h-px w-8 bg-line-strong" />
+            <span className="h-px w-8 bg-ink-line-strong" />
             Ömer Tekin Mühendislik &amp; İnşaat
           </motion.span>
 
@@ -47,7 +47,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={transition(0.12)}
-            className="text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-semibold tracking-tight text-offwhite"
+            className="text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-semibold tracking-tight text-on-ink"
           >
             Sağlam Temeller.
             <br />
@@ -58,7 +58,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={transition(0.24)}
-            className="mt-6 max-w-xl text-base leading-relaxed text-stone sm:text-lg"
+            className="mt-6 max-w-xl text-base leading-relaxed text-on-ink-soft sm:text-lg"
           >
             Mühendislikten uygulamaya, projelerinizi güvenli ve nitelikli
             yapılara dönüştürüyoruz.
@@ -70,10 +70,10 @@ export default function Hero() {
             transition={transition(0.36)}
             className="mt-10 flex flex-col gap-4 sm:flex-row"
           >
-            <Button href="/projeler" variant="primary" showArrow>
+            <Button href="/projeler" variant="primary" tone="ink" showArrow>
               Projelerimizi İnceleyin
             </Button>
-            <Button href="/iletisim" variant="secondary">
+            <Button href="/iletisim" variant="secondary" tone="ink">
               İletişime Geçin
             </Button>
           </motion.div>
@@ -83,11 +83,11 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={transition(0.5)}
-          className="grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-4"
+          className="grid grid-cols-2 gap-px border border-ink-line bg-ink-line sm:grid-cols-4"
         >
           {infoBlocks.map((label) => (
-            <div key={label} className="bg-charcoal-dark/80 px-5 py-4 backdrop-blur-sm sm:px-6 sm:py-5">
-              <span className="text-sm font-medium tracking-wide text-offwhite">{label}</span>
+            <div key={label} className="bg-ink-strong/80 px-5 py-4 backdrop-blur-sm sm:px-6 sm:py-5">
+              <span className="text-sm font-medium tracking-wide text-on-ink">{label}</span>
             </div>
           ))}
         </motion.div>
@@ -97,7 +97,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.8 }}
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted sm:flex"
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-on-ink-muted sm:flex"
         aria-hidden="true"
       >
         <span className="text-[10px] tracking-[0.3em] uppercase">Kaydır</span>

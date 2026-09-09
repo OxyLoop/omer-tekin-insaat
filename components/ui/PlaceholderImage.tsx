@@ -13,7 +13,7 @@ export default function PlaceholderImage({
   return (
     <div
       className={cn(
-        "flex h-full w-full flex-col items-center justify-center gap-3 bg-linear-to-br from-charcoal-dark via-charcoal to-[#26272b] text-muted",
+        "flex h-full w-full flex-col items-center justify-center gap-3 bg-linear-to-br from-ink-strong via-ink to-[#26272b] text-on-ink-muted",
         className,
       )}
       role="img"

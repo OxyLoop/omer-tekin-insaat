@@ -3,7 +3,7 @@ import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
 export default function QualityStatement() {
   return (
-    <section className="relative overflow-hidden bg-charcoal-dark">
+    <section className="relative overflow-hidden bg-ink-strong">
       <div className="absolute inset-0">
         <ImageWithFallback
           src="/engineering-quality.png"
@@ -13,23 +13,23 @@ export default function QualityStatement() {
           className="object-cover object-[75%_45%]"
           fallbackLabel="Mühendislik Görseli"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/75 to-charcoal/20" />
-        <div className="absolute inset-0 bg-charcoal/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/20" />
+        <div className="absolute inset-0 bg-ink/25" />
       </div>
 
       <div className="container-site relative section-y">
         <div className="max-w-3xl">
           <Reveal>
-            <span className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-stone uppercase">
-              <span className="h-px w-8 bg-line-strong" />
+            <span className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-on-ink-soft uppercase">
+              <span className="h-px w-8 bg-ink-line-strong" />
               Mühendislik Anlayışımız
             </span>
-            <h2 className="text-3xl leading-[1.15] font-semibold tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]">
+            <h2 className="text-3xl leading-[1.15] font-semibold tracking-tight text-balance text-on-ink sm:text-4xl lg:text-[2.75rem]">
               Her detayda mühendislik,
               <br />
               her yapıda güven.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-stone sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-on-ink-soft sm:text-lg">
               Projelerimizi planlama, teknik gereklilikler ve uygulama
               kalitesini birlikte değerlendirerek ele alıyoruz. Amacımız
               yalnızca yapı üretmek değil, güvenli ve uzun ömürlü yaşam

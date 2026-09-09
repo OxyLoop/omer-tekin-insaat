@@ -1,13 +1,63 @@
 @import "tailwindcss";
 
-@theme {
-  --color-charcoal: #1f2023;
-  --color-charcoal-dark: #151619;
-  --color-offwhite: #f5f5f3;
-  --color-muted: #9a9a9a;
-  --color-stone: #c6c6c6;
-  --color-line: rgba(255, 255, 255, 0.1);
-  --color-line-strong: rgba(255, 255, 255, 0.18);
+/*
+ * Tema token mimarisi
+ * -------------------
+ * İki bağımsız renk ailesi var:
+ *
+ * 1) Tema-duyarlı ("chrome") token'lar — charcoal, charcoal-dark, offwhite,
+ *    muted, stone, line, line-strong. Bunlar navbar, footer, kartlar, form
+ *    gibi sayfa arayüzünde kullanılır ve [data-theme] değerine göre değişir.
+ *
+ * 2) Sabit ("ink") token'lar — ink, ink-strong, on-ink, on-ink-muted,
+ *    on-ink-soft, ink-line, ink-line-strong. Bunlar mimari fotoğrafların
+ *    üzerindeki koyu overlay + açık metin kombinasyonunu HER İKİ TEMADA da
+ *    aynı (her zaman koyu) tutar — bu, sitenin "premium mimari fotoğrafçılık"
+ *    kimliğinin kasıtlı bir parçasıdır, tema hatası değildir.
+ */
+
+:root {
+  --raw-charcoal: #1f2023;
+  --raw-charcoal-dark: #151619;
+  --raw-offwhite: #f5f5f3;
+  --raw-muted: #9a9a9a;
+  --raw-stone: #c6c6c6;
+  --raw-line: rgba(255, 255, 255, 0.1);
+  --raw-line-strong: rgba(255, 255, 255, 0.18);
+  --raw-map-filter: grayscale(40%) contrast(1.05) invert(92%) hue-rotate(180deg);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --raw-charcoal: #f6f5f2;
+  --raw-charcoal-dark: #ece9e3;
+  --raw-offwhite: #1c1c1e;
+  --raw-muted: #6b6a65;
+  --raw-stone: #46453f;
+  --raw-line: rgba(0, 0, 0, 0.08);
+  --raw-line-strong: rgba(0, 0, 0, 0.15);
+  --raw-map-filter: none;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-charcoal: var(--raw-charcoal);
+  --color-charcoal-dark: var(--raw-charcoal-dark);
+  --color-offwhite: var(--raw-offwhite);
+  --color-muted: var(--raw-muted);
+  --color-stone: var(--raw-stone);
+  --color-line: var(--raw-line);
+  --color-line-strong: var(--raw-line-strong);
+
+  /* Sabit "ink" ailesi — mimari fotoğraf overlay'leri için, temadan bağımsız. */
+  --color-ink: #1f2023;
+  --color-ink-strong: #151619;
+  --color-on-ink: #f5f5f3;
+  --color-on-ink-muted: #9a9a9a;
+  --color-on-ink-soft: #c6c6c6;
+  --color-ink-line: rgba(255, 255, 255, 0.1);
+  --color-ink-line-strong: rgba(255, 255, 255, 0.18);
+
   --font-sans: var(--font-manrope);
   --animate-fade-up: fade-up 0.7s ease forwards;
 
@@ -31,6 +81,7 @@ body {
   background: var(--color-charcoal);
   color: var(--color-offwhite);
   font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {

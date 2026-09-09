@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   return (
     <div>
-      <section className="relative flex h-[60vh] min-h-[420px] items-end overflow-hidden bg-charcoal-dark pt-32">
+      <section className="relative flex h-[60vh] min-h-[420px] items-end overflow-hidden bg-ink-strong pt-32">
         <div className="absolute inset-0">
           <ImageWithFallback
             src={project.coverImage}
@@ -57,18 +57,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             style={project.coverImageObjectPosition ? { objectPosition: project.coverImageObjectPosition } : undefined}
             fallbackLabel="Proje Görseli"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
         </div>
 
         <div className="container-site relative z-10 pb-12 sm:pb-16">
           <Link
             href="/projeler"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-stone transition-colors hover:text-offwhite"
+            className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-on-ink-soft transition-colors hover:text-on-ink"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Tüm Projeler
           </Link>
-          <h1 className="text-4xl leading-[1.05] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl leading-[1.05] font-semibold tracking-tight text-balance text-on-ink sm:text-5xl lg:text-6xl">
             {project.name}
           </h1>
         </div>

@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { getAssetPath } from "@/lib/paths";
 import { navLinks } from "./nav-links";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,34 +28,55 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Ana sayfa ve proje detay sayfaları, navbar'ın üzerinde durduğu tam genişlikte
+  // bir mimari fotoğraf ile açılır. Bu fotoğraflar her iki temada da kasıtlı
+  // olarak koyu kalır (bkz. globals.css "ink" ailesi); bu yüzden navbar henüz
+  // kaydırılmamışken (fotoğrafın üzerindeyken) metin rengi de sabit açık
+  // kalmalı — aksi halde aydınlık modda koyu metin, koyu fotoğrafın üzerinde
+  // kaybolur. Diğer sayfalarda üst bant tema-duyarlı olduğundan navbar da
+  // normal şekilde temayla birlikte değişebilir.
+  const hasPhotoHero =
+    pathname === "/" || (pathname.startsWith("/projeler/") && pathname !== "/projeler/");
+
+  const solid = scrolled || menuOpen;
+  const useFixedLightText = hasPhotoHero && !solid;
+
   return (
     <>
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-          scrolled || menuOpen
+          solid
             ? "border-b border-line bg-charcoal/85 backdrop-blur-md"
             : "border-b border-transparent bg-transparent",
         )}
       >
+        {useFixedLightText && (
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-ink/70 to-transparent"
+            aria-hidden="true"
+          />
+        )}
         <nav
           className="container-site flex h-20 items-center justify-between md:h-24"
           aria-label="Ana navigasyon"
         >
           <Link href="/" className="relative z-10 flex items-center gap-3" aria-label="Ömer Tekin Mühendislik ve İnşaat - Ana Sayfa">
-            <Image
-              src={getAssetPath("/logo.png")}
-              alt="Ömer Tekin Mühendislik ve İnşaat logosu"
-              width={44}
-              height={44}
-              className="h-10 w-10 object-contain sm:h-11 sm:w-11"
-              priority
-            />
+            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-[#1a1b1e] p-1.5 sm:h-11 sm:w-11">
+              <Image
+                src={getAssetPath("/logo.png")}
+                alt="Ömer Tekin Mühendislik ve İnşaat logosu"
+                width={44}
+                height={44}
+                className="h-full w-full object-contain"
+                priority
+              />
+            </span>
             <span className="hidden flex-col leading-tight sm:flex">
-              <span className="text-sm font-semibold tracking-wide text-offwhite">
+              <span className={cn("text-sm font-semibold tracking-wide", useFixedLightText ? "text-on-ink" : "text-offwhite")}>
                 ÖMER TEKİN
               </span>
-              <span className="text-[10px] tracking-[0.2em] text-muted uppercase">
+              <span className={cn("text-[10px] tracking-[0.2em] uppercase", useFixedLightText ? "text-on-ink-muted" : "text-muted")}>
                 Mühendislik | İnşaat
               </span>
             </span>
@@ -71,13 +93,20 @@ export default function Navbar() {
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       "group relative px-4 py-2 text-sm font-medium tracking-wide transition-colors",
-                      isActive ? "text-offwhite" : "text-muted hover:text-offwhite",
+                      useFixedLightText
+                        ? isActive
+                          ? "text-on-ink"
+                          : "text-on-ink-muted hover:text-on-ink"
+                        : isActive
+                          ? "text-offwhite"
+                          : "text-muted hover:text-offwhite",
                     )}
                   >
                     {link.label}
                     <span
                       className={cn(
-                        "absolute inset-x-4 -bottom-0.5 h-px origin-left scale-x-0 bg-offwhite transition-transform duration-300 group-hover:scale-x-100",
+                        "absolute inset-x-4 -bottom-0.5 h-px origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100",
+                        useFixedLightText ? "bg-on-ink" : "bg-offwhite",
                         isActive && "scale-x-100",
                       )}
                     />
@@ -87,10 +116,24 @@ export default function Navbar() {
             })}
           </ul>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <ThemeToggle
+              className={cn(
+                "h-9 w-9 rounded-md border transition-colors duration-300",
+                useFixedLightText
+                  ? "border-ink-line-strong text-on-ink hover:border-on-ink"
+                  : "border-line-strong text-offwhite hover:border-offwhite",
+              )}
+              iconClassName="h-4 w-4"
+            />
             <Link
               href="/iletisim"
-              className="hidden border border-line-strong px-5 py-2.5 text-sm font-medium tracking-wide text-offwhite transition-colors duration-300 hover:border-offwhite lg:inline-flex"
+              className={cn(
+                "hidden border px-5 py-2.5 text-sm font-medium tracking-wide transition-colors duration-300 lg:inline-flex",
+                useFixedLightText
+                  ? "border-ink-line-strong text-on-ink hover:border-on-ink"
+                  : "border-line-strong text-offwhite hover:border-offwhite",
+              )}
             >
               İletişime Geç
             </Link>
@@ -103,13 +146,15 @@ export default function Navbar() {
             >
               <span
                 className={cn(
-                  "h-px w-6 bg-offwhite transition-transform duration-300",
+                  "h-px w-6 transition-transform duration-300",
+                  useFixedLightText ? "bg-on-ink" : "bg-offwhite",
                   menuOpen && "translate-y-[3.5px] rotate-45",
                 )}
               />
               <span
                 className={cn(
-                  "h-px w-6 bg-offwhite transition-transform duration-300",
+                  "h-px w-6 transition-transform duration-300",
+                  useFixedLightText ? "bg-on-ink" : "bg-offwhite",
                   menuOpen && "-translate-y-[3.5px] -rotate-45",
                 )}
               />

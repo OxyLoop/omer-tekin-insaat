@@ -53,7 +53,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Lightbo
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-100 flex flex-col bg-charcoal/97 backdrop-blur-sm"
+          className="fixed inset-0 z-100 flex flex-col bg-ink/97 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Proje görsel galerisi"
@@ -69,14 +69,14 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Lightbo
           }}
         >
           <div className="flex items-center justify-between px-5 py-5 sm:px-8">
-            <span className="text-sm tracking-widest text-stone tabular-nums">
+            <span className="text-sm tracking-widest text-on-ink-soft tabular-nums">
               {String(index! + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
             </span>
             <button
               type="button"
               onClick={onClose}
               aria-label="Galeriyi kapat"
-              className="flex h-10 w-10 items-center justify-center border border-line-strong text-offwhite transition-colors hover:border-offwhite"
+              className="flex h-10 w-10 items-center justify-center border border-ink-line-strong text-on-ink transition-colors hover:border-on-ink"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -87,7 +87,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Lightbo
               type="button"
               onClick={goPrev}
               aria-label="Önceki görsel"
-              className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-line-strong text-offwhite transition-colors hover:border-offwhite sm:left-6"
+              className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-ink-line-strong text-on-ink transition-colors hover:border-on-ink sm:left-6"
             >
               <ChevronLeft className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -113,7 +113,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Lightbo
               type="button"
               onClick={goNext}
               aria-label="Sonraki görsel"
-              className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-line-strong text-offwhite transition-colors hover:border-offwhite sm:right-6"
+              className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-ink-line-strong text-on-ink transition-colors hover:border-on-ink sm:right-6"
             >
               <ChevronRight className="h-5 w-5" aria-hidden="true" />
             </button>
