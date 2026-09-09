@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
-import { aboutPage, companyValues } from "@/data/company";
-import { aboutStats } from "@/data/stats";
+import { aboutPage, companyValues, founder } from "@/data/company";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
@@ -56,18 +55,23 @@ export default function HakkimizdaPage() {
 
       <section className="border-t border-y border-line bg-charcoal-dark">
         <div className="container-site">
-          <div className="grid grid-cols-1 divide-y divide-line border-x border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            {aboutStats.map((stat, index) => (
-              <Reveal key={stat.id} delay={index * 0.08} className="px-8 py-12 text-center">
-                <p className="text-4xl font-semibold tracking-tight text-offwhite sm:text-5xl">
-                  {stat.value}
-                </p>
-                <p className="mt-3 text-xs tracking-[0.15em] text-muted uppercase sm:text-sm">
-                  {stat.label}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal>
+            <div className="flex flex-col gap-6 border border-line p-8 sm:flex-row sm:items-start sm:gap-10 sm:p-10">
+              <div className="shrink-0">
+                <span className="text-xs font-semibold tracking-[0.2em] text-muted uppercase">
+                  Yetkili Mühendis
+                </span>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-offwhite">
+                  {founder.name}
+                </h3>
+                <p className="mt-1 text-sm text-stone">{founder.title}</p>
+                <p className="mt-1 text-sm text-muted">{founder.education}</p>
+              </div>
+              <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+                {founder.bio}
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

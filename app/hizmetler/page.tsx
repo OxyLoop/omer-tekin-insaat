@@ -6,7 +6,7 @@ import { services } from "@/data/services";
 export const metadata: Metadata = {
   title: "Hizmetlerimiz",
   description:
-    "Anahtar teslim inşaat, müteahhitlik, konut ve villa projeleri, ticari yapılar, kentsel dönüşüm ve mühendislik danışmanlığı hizmetlerimiz.",
+    "Mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat & renovasyon hizmetlerimiz.",
 };
 
 export default function HizmetlerPage() {
@@ -22,8 +22,8 @@ export default function HizmetlerPage() {
             Hizmetlerimiz
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            Mühendislik, projelendirme, uygulama ve taahhüt süreçlerinin tamamını
-            kapsayan hizmet alanlarımız.
+            Mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim
+            proje ve tadilat alanlarında sunduğumuz hizmetler.
           </p>
         </div>
       </section>

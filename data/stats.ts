@@ -1,6 +1,9 @@
 import { Stat } from "@/types";
 
 // TODO: Replace with real company information. Aşağıdaki tüm değerler yer tutucudur (placeholder).
+// NOT: Gerçek rakamlar netleşene kadar bu istatistikler hiçbir sayfada
+// render edilmiyor (bkz. app/page.tsx, app/hakkimizda/page.tsx). Veri yapısı
+// ileride gerçek değerlerle kolayca yeniden bağlanabilmesi için korunmuştur.
 export const homeStats: Stat[] = [
   {
     id: 1,

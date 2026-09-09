@@ -30,10 +30,10 @@ export default function QualityStatement() {
               her yapıda güven.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-stone sm:text-lg">
-              Projelerimizi; planlama, malzeme kalitesi, mühendislik standartları ve
-              uygulama denetimi süreçlerini bir arada değerlendirerek yürütüyoruz.
-              Bu yaklaşım, teslim ettiğimiz her yapının uzun vadede güvenli ve
-              işlevsel kalmasını sağlar.
+              Projelerimizi planlama, teknik gereklilikler ve uygulama
+              kalitesini birlikte değerlendirerek ele alıyoruz. Amacımız
+              yalnızca yapı üretmek değil, güvenli ve uzun ömürlü yaşam
+              alanları ortaya koymaktır.
             </p>
           </Reveal>
         </div>

@@ -48,10 +48,11 @@ export interface CompanyValue {
 }
 
 export interface ContactInfo {
-  phone: string;
-  phoneDisplay: string;
-  whatsapp: string;
-  email: string;
+  /** Gerçek numara netleşene kadar null — bileşenler bu alanları otomatik gizler. */
+  phone: string | null;
+  phoneDisplay: string | null;
+  whatsapp: string | null;
+  email: string | null;
   instagram: string;
   instagramHandle: string;
   address: string;
@@ -59,5 +60,8 @@ export interface ContactInfo {
     days: string;
     hours: string;
   };
+  /** Adres bazlı arama sorgusu (koordinat uydurmamak için adres metni kullanılır). */
+  mapsQuery: string;
   mapsEmbedUrl: string;
+  mapsDirectionsUrl: string;
 }

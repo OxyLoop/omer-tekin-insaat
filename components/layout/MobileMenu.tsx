@@ -16,6 +16,8 @@ interface MobileMenuProps {
 }
 
 export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
+  const whatsappHref = getWhatsAppLink();
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -83,13 +85,15 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
             className="border-t border-line px-6 py-8"
           >
             <div className="flex flex-col gap-3 text-sm text-muted">
-              <a
-                href={`tel:${contactInfo.phone}`}
-                className="flex items-center gap-3 transition-colors hover:text-offwhite"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                {contactInfo.phoneDisplay}
-              </a>
+              {contactInfo.phone && contactInfo.phoneDisplay && (
+                <a
+                  href={`tel:${contactInfo.phone}`}
+                  className="flex items-center gap-3 transition-colors hover:text-offwhite"
+                >
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  {contactInfo.phoneDisplay}
+                </a>
+              )}
               <a
                 href={contactInfo.instagram}
                 target="_blank"
@@ -99,15 +103,17 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
                 <InstagramIcon className="h-4 w-4" />
                 {contactInfo.instagramHandle}
               </a>
-              <a
-                href={getWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 transition-colors hover:text-offwhite"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                WhatsApp
-              </a>
+              {whatsappHref && (
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 transition-colors hover:text-offwhite"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  WhatsApp
+                </a>
+              )}
             </div>
           </motion.div>
         </motion.div>

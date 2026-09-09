@@ -5,30 +5,38 @@ export const companyInfo = {
   shortName: "Ömer Tekin",
   tagline: "Sağlam Temeller. Güvenilir Yapılar.",
   brandStatement: "Her detayda mühendislik, her yapıda güven.",
+  location: "Yatağan / Muğla",
   founded: "", // TODO: Replace with real company information (kuruluş yılı).
+};
+
+export const founder = {
+  name: "Ömer Tekin",
+  title: "İnşaat Mühendisi",
+  education: "Dokuz Eylül Üniversitesi – İnşaat Mühendisliği",
+  bio: "İnşaat Mühendisi Ömer Tekin tarafından yürütülen mühendislik ve inşaat hizmetlerinde, teknik gereklilikler ile uygulama kalitesinin birlikte ele alınması esas alınmaktadır.",
 };
 
 export const companyIntro = {
   eyebrow: "Biz Kimiz?",
   heading: "Yapının her aşamasında mühendislik disiplinini merkeze alıyoruz.",
   body: [
-    "Ömer Tekin Mühendislik ve İnşaat; mühendislik, projelendirme, uygulama ve taahhüt süreçlerini bütüncül bir yaklaşımla ele alır. Her projede güvenli, işlevsel ve uzun ömürlü yapılar üretmeyi hedefler.",
-    "Konut, villa ve ticari yapı ölçeğindeki projelerde; doğru planlama, kaliteli malzeme seçimi ve sahada disiplinli uygulama ile yatırımın değerini uzun vadede koruyacak çözümler sunuyoruz.",
+    "Ömer Tekin Mühendislik ve İnşaat; mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat alanlarında hizmet vermektedir.",
+    "Projelendirmeden uygulamaya kadar yapının farklı aşamalarında mühendislik yaklaşımını merkeze alan firma, işlevsel, güvenli ve uzun ömürlü yapılar ortaya koymayı hedeflemektedir.",
   ],
 };
 
 export const aboutPage = {
   heroTitle: "Hakkımızda",
   heroSubtitle:
-    "Mühendislik disiplinini merkeze alan, uygulamada titiz bir yaklaşım benimseyen bir mühendislik ve inşaat firmasıyız.",
+    "Yatağan, Muğla merkezli; mühendislik disiplinini merkeze alan bir mühendislik ve inşaat firmasıyız.",
   philosophyHeading: "Yaklaşımımız",
   philosophyBody: [
-    "Ömer Tekin Mühendislik ve İnşaat olarak, bir yapının değerinin yalnızca tamamlandığı anda değil; yıllar boyunca gösterdiği performansta ortaya çıktığına inanıyoruz. Bu nedenle her projeye mühendislik hesaplarından uygulama denetimine kadar aynı titizlikle yaklaşıyoruz.",
-    "Proje geliştirme sürecinde mimari, statik ve tesisat disiplinlerini bir arada değerlendiriyor; uygulama aşamasında ise saha ekiplerimizle koordineli bir kalite kontrol süreci yürütüyoruz. Amacımız, yatırımcılarımıza ve müşterilerimize güvenle teslim edebileceğimiz yapılar üretmek.",
+    "Ömer Tekin Mühendislik ve İnşaat; mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat alanlarında hizmet vermektedir.",
+    "Projelendirmeden uygulamaya kadar yapının farklı aşamalarında mühendislik yaklaşımını merkeze alan firma, işlevsel, güvenli ve uzun ömürlü yapılar ortaya koymayı hedeflemektedir.",
   ],
   engineeringHeading: "Mühendislik Yaklaşımı",
   engineeringBody:
-    "Her proje; planlama, statik ve mimari projelendirme, malzeme seçimi ve saha uygulama kontrolü olmak üzere dört temel aşamada ele alınır. Bu yaklaşım, projelerin hem teknik yeterliliğini hem de uzun ömürlü performansını güvence altına alır.",
+    "Projelerimizi planlama, teknik gereklilikler ve uygulama kalitesini birlikte değerlendirerek ele alıyoruz. Amacımız yalnızca yapı üretmek değil, güvenli ve uzun ömürlü yaşam alanları ortaya koymaktır.",
 };
 
 export const companyValues: CompanyValue[] = [

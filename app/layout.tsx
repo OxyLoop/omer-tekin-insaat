@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import StructuredData from "@/components/seo/StructuredData";
 import { siteUrl, getAssetPath } from "@/lib/paths";
 
 const manrope = Manrope({
@@ -15,15 +16,15 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ömer Tekin Mühendislik ve İnşaat | Mühendislik & Müteahhitlik",
+    default: "Ömer Tekin Mühendislik ve İnşaat | Yatağan, Muğla",
     template: "%s | Ömer Tekin Mühendislik ve İnşaat",
   },
   description:
-    "Ömer Tekin Mühendislik ve İnşaat; mühendislik, müteahhitlik, proje, taahhüt, konut ve ticari yapı alanlarında hizmet vermektedir.",
+    "Ömer Tekin Mühendislik ve İnşaat; Yatağan, Muğla'da mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat hizmetleri sunmaktadır.",
   openGraph: {
-    title: "Ömer Tekin Mühendislik ve İnşaat",
+    title: "Ömer Tekin Mühendislik ve İnşaat | Yatağan, Muğla",
     description:
-      "Ömer Tekin Mühendislik ve İnşaat; mühendislik, müteahhitlik, proje, taahhüt, konut ve ticari yapı alanlarında hizmet vermektedir.",
+      "Ömer Tekin Mühendislik ve İnşaat; Yatağan, Muğla'da mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat hizmetleri sunmaktadır.",
     url: siteUrl,
     siteName: "Ömer Tekin Mühendislik ve İnşaat",
     locale: "tr_TR",
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="tr" className={`${manrope.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-charcoal text-offwhite">
+        <StructuredData />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

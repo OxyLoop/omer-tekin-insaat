@@ -133,27 +133,46 @@ Tüm iletişim bilgileri tek bir dosyada toplanmıştır: `data/contact.ts`.
 
 ```ts
 export const contactInfo: ContactInfo = {
-  phone: "+905XXXXXXXXX",       // tel: linki için (boşluksuz, + ile)
-  phoneDisplay: "+90 5XX XXX XX XX", // ekranda görünen format
-  whatsapp: "905XXXXXXXXX",     // wa.me linki için (+ olmadan)
-  email: "info@omertekin.com",
-  instagram: "https://instagram.com/omertekininsaat",
-  instagramHandle: "@omertekininsaat",
-  address: "[Adres bilgisi buraya gelecek]",
+  phone: null,       // TODO: gerçek numara — null olduğu sürece ilgili UI otomatik gizlenir
+  phoneDisplay: null,
+  whatsapp: null,    // TODO: gerçek WhatsApp numarası — null olduğu sürece buton gizlenir
+  email: null,       // TODO: gerçek e-posta adresi — null olduğu sürece ilgili UI otomatik gizlenir
+  instagram: "https://www.instagram.com/omertekinmuhendislik/",
+  instagramHandle: "@omertekinmuhendislik",
+  address: "Konak Mahallesi, Nevzat Özsoy Caddesi No:27/B, 48500 Yatağan / Muğla",
   workingHours: { days: "Pazartesi – Cumartesi", hours: "09:00 – 18:00" },
-  mapsEmbedUrl: "...", // bkz. bölüm 7
+  mapsQuery: "Konak Mahallesi Nevzat Özsoy Caddesi No:27/B Yatağan Muğla 48500",
+  mapsEmbedUrl: "...", // adres sorgusundan otomatik türetilir, bkz. bölüm 7
+  mapsDirectionsUrl: "...", // "Yol Tarifi Al" linki, otomatik türetilir
 };
 ```
+
+`phone`, `whatsapp` ve `email` alanları `null` olduğu sürece ilgili arayüz
+elemanları (footer satırı, iletişim sayfası satırı, yüzen WhatsApp butonu)
+otomatik olarak gizlenir — yanlış/placeholder bilgi asla canlı sitede
+görünmez. Gerçek değeri girdiğinizde ilgili alan otomatik olarak tekrar
+görünür hale gelir.
 
 Bu dosyayı güncellediğinizde navbar, footer, iletişim sayfası, WhatsApp
 butonu ve mobil menü gibi tüm bileşenler otomatik olarak güncellenir.
 
 ## 7. Google Maps Yapılandırması
 
-1. [Google Maps](https://maps.google.com) üzerinde işletme adresinizi arayın.
-2. **Paylaş > Harita yerleştir** seçeneğine tıklayın.
-3. Verilen `<iframe src="...">` linkini kopyalayın (yalnızca `src` içindeki URL).
-4. `data/contact.ts` dosyasındaki `mapsEmbedUrl` değerini bu URL ile değiştirin.
+Harita, `data/contact.ts` içindeki `mapsQuery` (adres metni) değerinden
+otomatik olarak türetilir — API anahtarı veya koordinat gerekmez:
+
+```ts
+const mapsQuery = "Konak Mahallesi Nevzat Özsoy Caddesi No:27/B Yatağan Muğla 48500";
+```
+
+Adresi değiştirmek isterseniz yalnızca `mapsQuery` değerini güncellemeniz
+yeterlidir; `mapsEmbedUrl` (harita gömme linki) ve `mapsDirectionsUrl`
+("Yol Tarifi Al" linki) bu değerden otomatik olarak hesaplanır.
+
+Daha hassas bir konum gerekiyorsa, isteğe bağlı olarak Google Maps'te
+**Paylaş > Harita yerleştir** ile alınan `<iframe src="...">` linkini
+doğrudan `mapsEmbedUrl` alanına yapıştırarak adres tabanlı sorgunun yerine
+geçebilirsiniz.
 
 Harita, koyu tema ile uyumlu görünmesi için hafif bir CSS filtresiyle
 gösterilir (`components/contact/MapEmbed.tsx`).

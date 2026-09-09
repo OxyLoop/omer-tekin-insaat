@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
-const infoBlocks = ["Mühendislik", "Taahhüt", "İnşaat", "Projelendirme"];
+const infoBlocks = ["Mühendislik", "Müteahhitlik", "Anahtar Teslim", "Tadilat"];
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -60,8 +60,8 @@ export default function Hero() {
             transition={transition(0.24)}
             className="mt-6 max-w-xl text-base leading-relaxed text-stone sm:text-lg"
           >
-            Mühendislik, proje ve uygulama süreçlerini aynı çatı altında
-            buluşturarak nitelikli ve uzun ömürlü yapılar üretiyoruz.
+            Mühendislikten uygulamaya, projelerinizi güvenli ve nitelikli
+            yapılara dönüştürüyoruz.
           </motion.p>
 
           <motion.div
