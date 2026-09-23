@@ -5,17 +5,20 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, Phone } from "lucide-react";
 import InstagramIcon from "@/components/icons/InstagramIcon";
-import { navLinks } from "./nav-links";
-import { contactInfo, getWhatsAppLink } from "@/data/contact";
+import type { NavLink } from "./nav-links";
+import { getWhatsAppLink } from "@/data/contact";
 import { cn } from "@/lib/utils";
+import type { ContactInfo } from "@/types";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
   pathname: string;
+  navLinks: NavLink[];
+  contact: ContactInfo;
 }
 
-export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
+export default function MobileMenu({ open, onClose, pathname, navLinks, contact }: MobileMenuProps) {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -84,23 +87,23 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
           >
             <div className="flex flex-col gap-3 text-sm text-muted">
               <a
-                href={`tel:${contactInfo.phone}`}
+                href={`tel:${contact.phone}`}
                 className="flex items-center gap-3 transition-colors hover:text-offwhite"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
-                {contactInfo.phoneDisplay}
+                {contact.phoneDisplay}
               </a>
               <a
-                href={contactInfo.instagram}
+                href={contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 transition-colors hover:text-offwhite"
               >
                 <InstagramIcon className="h-4 w-4" />
-                {contactInfo.instagramHandle}
+                {contact.instagramHandle}
               </a>
               <a
-                href={getWhatsAppLink()}
+                href={getWhatsAppLink(undefined, contact.whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 transition-colors hover:text-offwhite"

@@ -5,30 +5,32 @@ import { ArrowLeft } from "lucide-react";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import ProjectGallery from "@/components/projects/ProjectGallery";
 import Reveal from "@/components/motion/Reveal";
-import { getProjectBySlug, projects } from "@/data/projects";
+import { getProjectBySlug, getProjectSlugs } from "@/lib/sanity/content";
 import { statusLabels } from "@/lib/project-status";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+export async function generateStaticParams() {
+  const slugs = await getProjectSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
-    title: project.name,
-    description: project.summary,
+    title: project.seo?.title || project.name,
+    description: project.seo?.description || project.summary,
+    openGraph: project.seo?.ogImage ? { images: [project.seo.ogImage] } : undefined,
   };
 }
 
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();

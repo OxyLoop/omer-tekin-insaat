@@ -1,12 +1,25 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import { getWhatsAppLink } from "@/data/contact";
 
-export default function WhatsAppButton() {
+interface WhatsAppButtonProps {
+  whatsapp: string;
+}
+
+export default function WhatsAppButton({ whatsapp }: WhatsAppButtonProps) {
+  const pathname = usePathname();
+
+  // Yönetim paneli (/admin) kendi tam ekran arayüzünü kullanır; yüzen
+  // WhatsApp butonu orada gösterilmez.
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <a
-      href={getWhatsAppLink()}
+      href={getWhatsAppLink(undefined, whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp üzerinden iletişime geçin"

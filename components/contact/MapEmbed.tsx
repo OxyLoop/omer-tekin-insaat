@@ -1,15 +1,14 @@
-import { contactInfo } from "@/data/contact";
-
 interface MapEmbedProps {
+  mapsEmbedUrl: string;
   className?: string;
   title?: string;
 }
 
-export default function MapEmbed({ className, title = "Konum haritası" }: MapEmbedProps) {
+export default function MapEmbed({ mapsEmbedUrl, className, title = "Konum haritası" }: MapEmbedProps) {
   return (
     <div className={className}>
       <iframe
-        src={contactInfo.mapsEmbedUrl}
+        src={mapsEmbedUrl}
         title={title}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

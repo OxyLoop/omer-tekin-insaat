@@ -4,21 +4,25 @@ import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import MapEmbed from "@/components/contact/MapEmbed";
-import { contactInfo } from "@/data/contact";
+import type { ContactInfo } from "@/types";
 
-const items = [
-  { icon: Phone, label: "Telefon", value: (c: typeof contactInfo) => c.phoneDisplay, href: (c: typeof contactInfo) => `tel:${c.phone}` },
-  { icon: Mail, label: "E-posta", value: (c: typeof contactInfo) => c.email, href: (c: typeof contactInfo) => `mailto:${c.email}` },
-  { icon: MapPin, label: "Adres", value: (c: typeof contactInfo) => c.address, href: undefined },
-  {
-    icon: Clock,
-    label: "Çalışma Saatleri",
-    value: (c: typeof contactInfo) => `${c.workingHours.days} · ${c.workingHours.hours}`,
-    href: undefined,
-  },
-];
+interface ContactPreviewProps {
+  contact: ContactInfo;
+}
 
-export default function ContactPreview() {
+export default function ContactPreview({ contact }: ContactPreviewProps) {
+  const items = [
+    { icon: Phone, label: "Telefon", value: contact.phoneDisplay, href: `tel:${contact.phone}` },
+    { icon: Mail, label: "E-posta", value: contact.email, href: `mailto:${contact.email}` },
+    { icon: MapPin, label: "Adres", value: contact.address, href: undefined },
+    {
+      icon: Clock,
+      label: "Çalışma Saatleri",
+      value: `${contact.workingHours.days} · ${contact.workingHours.hours}`,
+      href: undefined,
+    },
+  ];
+
   return (
     <section className="section-y border-t border-line bg-charcoal-dark">
       <div className="container-site">
@@ -34,14 +38,14 @@ export default function ContactPreview() {
                       <Icon className="mt-1 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
                       <div>
                         <p className="text-xs tracking-[0.15em] text-muted uppercase">{label}</p>
-                        <p className="mt-1 text-base text-offwhite">{value(contactInfo)}</p>
+                        <p className="mt-1 text-base text-offwhite">{value}</p>
                       </div>
                     </div>
                   );
                   return (
                     <li key={label}>
                       {href ? (
-                        <a href={href(contactInfo)} className="transition-opacity hover:opacity-70">
+                        <a href={href} className="transition-opacity hover:opacity-70">
                           {content}
                         </a>
                       ) : (
@@ -55,12 +59,7 @@ export default function ContactPreview() {
                 <Button href="/iletisim" showArrow className="w-full sm:w-auto">
                   İletişim Sayfası
                 </Button>
-                <Button
-                  href={contactInfo.instagram}
-                  external
-                  variant="secondary"
-                  className="w-full sm:w-auto"
-                >
+                <Button href={contact.instagram} external variant="secondary" className="w-full sm:w-auto">
                   <InstagramIcon className="h-4 w-4" />
                   Instagram
                 </Button>
@@ -70,7 +69,7 @@ export default function ContactPreview() {
 
           <Reveal delay={0.12}>
             <div className="h-80 border border-line lg:h-full lg:min-h-[420px]">
-              <MapEmbed className="h-full w-full" />
+              <MapEmbed mapsEmbedUrl={contact.mapsEmbedUrl} className="h-full w-full" />
             </div>
           </Reveal>
         </div>

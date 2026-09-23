@@ -2,10 +2,14 @@ import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import ProjectCard from "@/components/projects/ProjectCard";
-import { getFeaturedProjects } from "@/data/projects";
+import type { Project } from "@/types";
 
-export default function FeaturedProjects() {
-  const featured = getFeaturedProjects(4);
+interface FeaturedProjectsProps {
+  projects: Project[];
+}
+
+export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+  if (!projects.length) return null;
 
   return (
     <section className="section-y bg-charcoal">
@@ -18,7 +22,7 @@ export default function FeaturedProjects() {
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {featured.map((project, index) => (
+          {projects.map((project, index) => (
             <Reveal
               key={project.id}
               delay={index * 0.08}

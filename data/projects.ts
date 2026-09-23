@@ -5,7 +5,7 @@ import { Project } from "@/types";
 // bozmaz. Gerçek görseller eklendiğinde yollar aynı kalabilir.
 export const projects: Project[] = [
   {
-    id: 1,
+    id: "1",
     slug: "tekin-residence",
     name: "Tekin Residence",
     location: "Konum Bilgisi",
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 2,
+    id: "2",
     slug: "modern-villa",
     name: "Modern Villa",
     location: "Konum Bilgisi",
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 3,
+    id: "3",
     slug: "merkez-konutlari",
     name: "Merkez Konutları",
     location: "Konum Bilgisi",
@@ -86,7 +86,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 4,
+    id: "4",
     slug: "park-yasam",
     name: "Park Yaşam",
     location: "Konum Bilgisi",
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 5,
+    id: "5",
     slug: "ofis-projesi",
     name: "Ofis Projesi",
     location: "Konum Bilgisi",
@@ -126,7 +126,7 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: 6,
+    id: "6",
     slug: "yeni-yasam-konutlari",
     name: "Yeni Yaşam Konutları",
     location: "Konum Bilgisi",

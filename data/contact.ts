@@ -30,6 +30,9 @@ export const contactInfo: ContactInfo = {
 export const whatsappDefaultMessage =
   "Merhaba, Ömer Tekin Mühendislik ve İnşaat hakkında bilgi almak istiyorum.";
 
-export function getWhatsAppLink(message: string = whatsappDefaultMessage) {
-  return `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(message)}`;
+export function getWhatsAppLink(
+  message: string = whatsappDefaultMessage,
+  whatsappNumber: string = contactInfo.whatsapp,
+) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

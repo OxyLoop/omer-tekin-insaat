@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import StructuredData from "@/components/seo/StructuredData";
 import ThemeScript from "@/components/theme/ThemeScript";
+import { getServices } from "@/lib/sanity/content";
+import { getSiteSettings } from "@/lib/sanity/content";
 import { siteUrl, getAssetPath } from "@/lib/paths";
 
 const manrope = Manrope({
@@ -14,38 +16,50 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "Ömer Tekin Mühendislik ve İnşaat | Yatağan, Muğla",
-    template: "%s | Ömer Tekin Mühendislik ve İnşaat",
-  },
-  description:
-    "Ömer Tekin Mühendislik ve İnşaat; Yatağan, Muğla'da mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat hizmetleri sunmaktadır.",
-  openGraph: {
-    title: "Ömer Tekin Mühendislik ve İnşaat | Yatağan, Muğla",
-    description:
-      "Ömer Tekin Mühendislik ve İnşaat; Yatağan, Muğla'da mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat hizmetleri sunmaktadır.",
-    url: siteUrl,
-    siteName: "Ömer Tekin Mühendislik ve İnşaat",
-    locale: "tr_TR",
-    type: "website",
-  },
-  icons: {
-    icon: getAssetPath("/logo.png"),
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo, company } = await getSiteSettings();
+  const title = seo.title || `${company.name} | ${company.location}`;
+  const description = seo.description || "";
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: title,
+      template: `%s | ${company.name}`,
+    },
+    description,
+    openGraph: {
+      title,
+      description,
+      url: siteUrl,
+      siteName: company.name,
+      locale: "tr_TR",
+      type: "website",
+      images: seo.ogImage ? [seo.ogImage] : undefined,
+    },
+    icons: {
+      icon: getAssetPath("/logo.png"),
+    },
+  };
+}
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const [settings, services] = await Promise.all([getSiteSettings(), getServices()]);
+
   return (
     <html lang="tr" className={`${manrope.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col bg-charcoal text-offwhite">
         <ThemeScript />
-        <StructuredData />
-        <Navbar />
+        <StructuredData settings={settings} />
+        <Navbar
+          nav={settings.nav}
+          contact={settings.contact}
+          logoUrl={settings.company.logoUrl}
+          companyShortName={settings.company.shortName}
+        />
         <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <Footer settings={settings} services={services} />
+        <WhatsAppButton whatsapp={settings.contact.whatsapp} />
       </body>
     </html>
   );

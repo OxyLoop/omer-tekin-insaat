@@ -2,7 +2,7 @@ import { Service } from "@/types";
 
 export const services: Service[] = [
   {
-    id: 1,
+    id: "1",
     slug: "muhendislik",
     number: "01",
     title: "Mühendislik",
@@ -12,7 +12,7 @@ export const services: Service[] = [
       "Yapıların projelendirme ve uygulama süreçlerinde teknik gereklilikleri esas alan mühendislik çözümleri sunuyoruz.",
   },
   {
-    id: 2,
+    id: "2",
     slug: "muteahhitlik",
     number: "02",
     title: "Müteahhitlik",
@@ -22,7 +22,7 @@ export const services: Service[] = [
       "Planlama, koordinasyon ve uygulama süreçlerinin bütüncül şekilde yürütüldüğü müteahhitlik hizmetleri sunuyoruz.",
   },
   {
-    id: 3,
+    id: "3",
     slug: "kat-karsiligi-insaat",
     number: "03",
     title: "Kat Karşılığı İnşaat",
@@ -32,7 +32,7 @@ export const services: Service[] = [
       "Arsa sahipleriyle yürütülen kat karşılığı projelerde planlamadan yapım sürecine kadar kapsamlı hizmet veriyoruz.",
   },
   {
-    id: 4,
+    id: "4",
     slug: "anahtar-teslim-proje",
     number: "04",
     title: "Anahtar Teslim Proje",
@@ -42,7 +42,7 @@ export const services: Service[] = [
       "Projelendirme, uygulama ve teslim süreçlerinin tek noktadan yönetildiği anahtar teslim yapı çözümleri sunuyoruz.",
   },
   {
-    id: 5,
+    id: "5",
     slug: "tadilat-renovasyon",
     number: "05",
     title: "Tadilat & Renovasyon",

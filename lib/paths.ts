@@ -8,6 +8,9 @@ export const siteUrl = "https://example.github.io"; // TODO: Replace with real p
  * yerlerde public/ altındaki dosyalara referans verirken kullanılır.
  */
 export function getAssetPath(path: string): string {
+  // Mutlak URL'ler (ör. Sanity CDN'den gelen görseller) olduğu gibi bırakılır;
+  // yalnızca /public altındaki göreli yollara basePath eklenir.
+  if (/^https?:\/\//i.test(path)) return path;
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${basePath}${normalized}`;
 }

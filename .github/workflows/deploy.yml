@@ -4,6 +4,12 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  # Sanity Studio'da bir belge yayınlandığında (Kaydet) tetiklenen webhook,
+  # GitHub'ın repository_dispatch API'sini çağırarak buradaki build'i
+  # otomatik olarak başlatır. Kurulum adımları için README.md > "Yönetim
+  # Paneli Kurulumu > İçerik Değiştiğinde Otomatik Yayınlama" bölümüne bakın.
+  repository_dispatch:
+    types: [sanity-content-updated]
 
 permissions:
   contents: read
@@ -44,6 +50,10 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.basepath.outputs.value }}
           NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET || 'production' }}
+          NEXT_PUBLIC_SANITY_API_VERSION: "2025-01-01"
+          SANITY_API_READ_TOKEN: ${{ secrets.SANITY_API_READ_TOKEN }}
         run: npm run build
 
       - name: Setup Pages

@@ -1,12 +1,19 @@
 import Reveal from "@/components/motion/Reveal";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import type { QualityStatementContent } from "@/lib/sanity/content";
 
-export default function QualityStatement() {
+interface QualityStatementProps {
+  content: QualityStatementContent;
+}
+
+export default function QualityStatement({ content }: QualityStatementProps) {
+  const headingLines = content.heading.split("\n").filter(Boolean);
+
   return (
     <section className="relative overflow-hidden bg-ink-strong">
       <div className="absolute inset-0">
         <ImageWithFallback
-          src="/engineering-quality.png"
+          src={content.image}
           alt="Gün batımında inşaat sahasında vinç, iskelet halindeki bina ve mühendislik çizimleri"
           fill
           sizes="100vw"
@@ -22,18 +29,18 @@ export default function QualityStatement() {
           <Reveal>
             <span className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-on-ink-soft uppercase">
               <span className="h-px w-8 bg-ink-line-strong" />
-              Mühendislik Anlayışımız
+              {content.eyebrow}
             </span>
             <h2 className="text-3xl leading-[1.15] font-semibold tracking-tight text-balance text-on-ink sm:text-4xl lg:text-[2.75rem]">
-              Her detayda mühendislik,
-              <br />
-              her yapıda güven.
+              {headingLines.map((line, index) => (
+                <span key={line}>
+                  {line}
+                  {index < headingLines.length - 1 && <br />}
+                </span>
+              ))}
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-on-ink-soft sm:text-lg">
-              Projelerimizi planlama, teknik gereklilikler ve uygulama
-              kalitesini birlikte değerlendirerek ele alıyoruz. Amacımız
-              yalnızca yapı üretmek değil, güvenli ve uzun ömürlü yaşam
-              alanları ortaya koymaktır.
+              {content.body}
             </p>
           </Reveal>
         </div>

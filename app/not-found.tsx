@@ -1,7 +1,37 @@
+"use client";
+
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import StudioClient from "@/components/admin/StudioClient";
+import { basePath } from "@/lib/paths";
+
+function subscribe() {
+  return () => {};
+}
+
+function getSnapshot(): boolean {
+  const path = window.location.pathname.slice(basePath.length) || "/";
+  return path.startsWith("/admin");
+}
+
+// Statik dışa aktarımda (output: "export") derleme sırasında gerçek bir
+// tarayıcı adresi bulunmadığından her zaman "false" varsayılır; bu, GitHub
+// Pages'e yüklenen tek 404.html dosyasının içeriğidir. Sayfa tarayıcıda
+// açıldığında gerçek adres okunur ve /admin altındaki bağlantılar (örn.
+// belge düzenleme ekranları) doğrudan Sanity Studio'yu gösterir — böylece
+// GitHub Pages'in "dosya bulunamadı" davranışı /admin için sorun yaratmaz.
+function getServerSnapshot(): boolean {
+  return false;
+}
 
 export default function NotFound() {
+  const isAdminPath = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  if (isAdminPath) {
+    return <StudioClient />;
+  }
+
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 pt-32 text-center">
       <span className="text-xs font-semibold tracking-[0.3em] text-muted uppercase">404</span>

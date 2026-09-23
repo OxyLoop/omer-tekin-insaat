@@ -2,10 +2,16 @@ import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import ServiceListItem from "./ServiceListItem";
-import { services } from "@/data/services";
+import type { Service } from "@/types";
 
-export default function ServicesPreview() {
+interface ServicesPreviewProps {
+  services: Service[];
+}
+
+export default function ServicesPreview({ services }: ServicesPreviewProps) {
   const preview = services.slice(0, 6);
+
+  if (!preview.length) return null;
 
   return (
     <section className="section-y bg-charcoal">

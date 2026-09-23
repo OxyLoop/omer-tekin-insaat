@@ -1,26 +1,29 @@
-import { companyInfo } from "@/data/company";
-import { contactInfo } from "@/data/contact";
+import type { SiteSettingsContent } from "@/lib/sanity/content";
 import { siteUrl } from "@/lib/paths";
 
-// TODO: Telefon bilgisi netleşince "telephone" alanı eklenebilir.
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "GeneralContractor",
-  name: companyInfo.name,
-  url: siteUrl,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Nevzat Özsoy Caddesi No:27/B",
-    addressLocality: "Yatağan",
-    addressRegion: "Muğla",
-    postalCode: "48500",
-    addressCountry: "TR",
-  },
-  areaServed: companyInfo.location,
-  sameAs: [contactInfo.instagram],
-};
+interface StructuredDataProps {
+  settings: SiteSettingsContent;
+}
 
-export default function StructuredData() {
+export default function StructuredData({ settings }: StructuredDataProps) {
+  const { company, contact } = settings;
+
+  // TODO: Telefon bilgisi netleşince "telephone" alanı eklenebilir.
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "GeneralContractor",
+    name: company.name,
+    url: siteUrl,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: contact.address,
+      addressRegion: "Muğla",
+      addressCountry: "TR",
+    },
+    areaServed: company.location,
+    sameAs: [contact.instagram].filter(Boolean),
+  };
+
   return (
     <script
       type="application/ld+json"

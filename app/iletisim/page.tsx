@@ -4,7 +4,8 @@ import InstagramIcon from "@/components/icons/InstagramIcon";
 import Reveal from "@/components/motion/Reveal";
 import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
-import { contactInfo, getWhatsAppLink } from "@/data/contact";
+import { getWhatsAppLink } from "@/data/contact";
+import { getSiteSettings } from "@/lib/sanity/content";
 
 export const metadata: Metadata = {
   title: "İletişim",
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
     "Projeleriniz ve mühendislik ihtiyaçlarınız için Ömer Tekin Mühendislik ve İnşaat ile iletişime geçin.",
 };
 
-export default function IletisimPage() {
+export default async function IletisimPage() {
+  const { contact } = await getSiteSettings();
+  const mapsDirectionsUrl = contact.mapsDirectionsUrl;
+
   return (
     <div>
       <section className="border-b border-line bg-charcoal-dark pt-36 pb-16 sm:pt-40 sm:pb-20">
@@ -40,9 +44,9 @@ export default function IletisimPage() {
                   <MapPin className="mt-1 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">Adres</p>
-                    <p className="mt-1 text-lg text-offwhite">{contactInfo.address}</p>
+                    <p className="mt-1 text-lg text-offwhite">{contact.address}</p>
                     <a
-                      href={contactInfo.mapsDirectionsUrl}
+                      href={mapsDirectionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-2 inline-block text-sm text-stone underline underline-offset-4 transition-colors hover:text-offwhite"
@@ -56,12 +60,12 @@ export default function IletisimPage() {
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">Instagram</p>
                     <a
-                      href={contactInfo.instagram}
+                      href={contact.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-1 block text-lg text-offwhite hover:opacity-70"
                     >
-                      {contactInfo.instagramHandle}
+                      {contact.instagramHandle}
                     </a>
                   </div>
                 </li>
@@ -70,8 +74,8 @@ export default function IletisimPage() {
                   <Phone className="mt-1 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">Telefon</p>
-                    <a href={`tel:${contactInfo.phone}`} className="mt-1 block text-lg text-offwhite hover:opacity-70">
-                      {contactInfo.phoneDisplay}
+                    <a href={`tel:${contact.phone}`} className="mt-1 block text-lg text-offwhite hover:opacity-70">
+                      {contact.phoneDisplay}
                     </a>
                   </div>
                 </li>
@@ -87,12 +91,12 @@ export default function IletisimPage() {
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">WhatsApp</p>
                     <a
-                      href={getWhatsAppLink()}
+                      href={getWhatsAppLink(undefined, contact.whatsapp)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-1 block text-lg text-offwhite hover:opacity-70"
                     >
-                      {contactInfo.phoneDisplay}
+                      {contact.phoneDisplay}
                     </a>
                   </div>
                 </li>
@@ -101,8 +105,8 @@ export default function IletisimPage() {
                   <Mail className="mt-1 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">E-posta</p>
-                    <a href={`mailto:${contactInfo.email}`} className="mt-1 block text-lg text-offwhite hover:opacity-70">
-                      {contactInfo.email}
+                    <a href={`mailto:${contact.email}`} className="mt-1 block text-lg text-offwhite hover:opacity-70">
+                      {contact.email}
                     </a>
                   </div>
                 </li>
@@ -112,16 +116,16 @@ export default function IletisimPage() {
                   <div>
                     <p className="text-xs tracking-[0.15em] text-muted uppercase">Çalışma Saatleri</p>
                     <p className="mt-1 text-lg text-offwhite">
-                      {contactInfo.workingHours.days}
+                      {contact.workingHours.days}
                       <br />
-                      {contactInfo.workingHours.hours}
+                      {contact.workingHours.hours}
                     </p>
                   </div>
                 </li>
               </ul>
 
               <div className="h-72 border border-line sm:h-96">
-                <MapEmbed className="h-full w-full" />
+                <MapEmbed mapsEmbedUrl={contact.mapsEmbedUrl} className="h-full w-full" />
               </div>
             </div>
           </Reveal>

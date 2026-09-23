@@ -4,10 +4,13 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
+import type { HeroContent } from "@/lib/sanity/content";
 
-const infoBlocks = ["Mühendislik", "Müteahhitlik", "Anahtar Teslim", "Tadilat"];
+interface HeroProps {
+  content: HeroContent;
+}
 
-export default function Hero() {
+export default function Hero({ content }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
   const transition = (delay: number) => ({
     duration: 0.8,
@@ -15,11 +18,13 @@ export default function Hero() {
     ease: [0.22, 1, 0.36, 1] as const,
   });
 
+  const titleLines = content.title.split("\n").filter(Boolean);
+
   return (
     <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-ink-strong sm:min-h-[100vh]">
       <div className="absolute inset-0">
         <ImageWithFallback
-          src="/hero-project.png"
+          src={content.image}
           alt="Ömer Tekin Mühendislik ve İnşaat tarafından uygulanan, deniz manzaralı modern bir konut projesi"
           fill
           priority
@@ -40,7 +45,7 @@ export default function Hero() {
             className="mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-on-ink-soft uppercase"
           >
             <span className="h-px w-8 bg-ink-line-strong" />
-            Ömer Tekin Mühendislik &amp; İnşaat
+            {content.eyebrow}
           </motion.span>
 
           <motion.h1
@@ -49,9 +54,12 @@ export default function Hero() {
             transition={transition(0.12)}
             className="text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-semibold tracking-tight text-on-ink"
           >
-            Sağlam Temeller.
-            <br />
-            Güvenilir Yapılar.
+            {titleLines.map((line, index) => (
+              <span key={line}>
+                {line}
+                {index < titleLines.length - 1 && <br />}
+              </span>
+            ))}
           </motion.h1>
 
           <motion.p
@@ -60,8 +68,7 @@ export default function Hero() {
             transition={transition(0.24)}
             className="mt-6 max-w-xl text-base leading-relaxed text-on-ink-soft sm:text-lg"
           >
-            Mühendislikten uygulamaya, projelerinizi güvenli ve nitelikli
-            yapılara dönüştürüyoruz.
+            {content.subtitle}
           </motion.p>
 
           <motion.div
@@ -70,27 +77,29 @@ export default function Hero() {
             transition={transition(0.36)}
             className="mt-10 flex flex-col gap-4 sm:flex-row"
           >
-            <Button href="/projeler" variant="primary" tone="ink" showArrow>
-              Projelerimizi İnceleyin
+            <Button href={content.ctaPrimaryLink} variant="primary" tone="ink" showArrow>
+              {content.ctaPrimaryLabel}
             </Button>
-            <Button href="/iletisim" variant="secondary" tone="ink">
-              İletişime Geçin
+            <Button href={content.ctaSecondaryLink} variant="secondary" tone="ink">
+              {content.ctaSecondaryLabel}
             </Button>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={transition(0.5)}
-          className="grid grid-cols-2 gap-px border border-ink-line bg-ink-line sm:grid-cols-4"
-        >
-          {infoBlocks.map((label) => (
-            <div key={label} className="bg-ink-strong/80 px-5 py-4 backdrop-blur-sm sm:px-6 sm:py-5">
-              <span className="text-sm font-medium tracking-wide text-on-ink">{label}</span>
-            </div>
-          ))}
-        </motion.div>
+        {content.infoBlocks.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={transition(0.5)}
+            className="grid grid-cols-2 gap-px border border-ink-line bg-ink-line sm:grid-cols-4"
+          >
+            {content.infoBlocks.map((label) => (
+              <div key={label} className="bg-ink-strong/80 px-5 py-4 backdrop-blur-sm sm:px-6 sm:py-5">
+                <span className="text-sm font-medium tracking-wide text-on-ink">{label}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
       </div>
 
       <motion.div

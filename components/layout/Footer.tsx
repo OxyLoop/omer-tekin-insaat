@@ -1,15 +1,31 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Mail, MapPin, Phone } from "lucide-react";
 import InstagramIcon from "@/components/icons/InstagramIcon";
-import { navLinks } from "./nav-links";
-import { contactInfo } from "@/data/contact";
-import { companyInfo } from "@/data/company";
-import { services } from "@/data/services";
+import { buildNavLinks } from "./nav-links";
 import { getAssetPath } from "@/lib/paths";
+import type { SiteSettingsContent } from "@/lib/sanity/content";
+import type { Service } from "@/types";
 
-export default function Footer() {
+interface FooterProps {
+  settings: SiteSettingsContent;
+  services: Service[];
+}
+
+export default function Footer({ settings, services }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const navLinks = buildNavLinks(settings.nav);
+  const { contact, company, footer } = settings;
+
+  // Yönetim paneli (/admin) kendi tam ekran arayüzünü kullanır; herkese açık
+  // site footer'ı orada gösterilmez.
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="border-t border-line bg-charcoal-dark">
@@ -18,8 +34,8 @@ export default function Footer() {
           <Link href="/" className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-md bg-[#1a1b1e] p-1.5">
               <Image
-                src={getAssetPath("/logo.png")}
-                alt="Ömer Tekin Mühendislik ve İnşaat logosu"
+                src={company.logoUrl || getAssetPath("/logo.png")}
+                alt={`${company.name} logosu`}
                 width={48}
                 height={48}
                 className="h-full w-full object-contain"
@@ -27,17 +43,14 @@ export default function Footer() {
             </span>
             <span className="flex flex-col leading-tight">
               <span className="text-sm font-semibold tracking-wide text-offwhite">
-                ÖMER TEKİN
+                {company.shortName}
               </span>
               <span className="text-[10px] tracking-[0.2em] text-muted uppercase">
                 Mühendislik | İnşaat
               </span>
             </span>
           </Link>
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">
-            {companyInfo.name}; mühendislik, müteahhitlik, kat karşılığı inşaat,
-            anahtar teslim proje ve tadilat hizmetleri sunmaktadır.
-          </p>
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">{footer.description}</p>
         </div>
 
         <div>
@@ -79,30 +92,30 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-3 text-sm text-muted">
             <li>
-              <a href={`tel:${contactInfo.phone}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
+              <a href={`tel:${contact.phone}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                {contactInfo.phoneDisplay}
+                {contact.phoneDisplay}
               </a>
             </li>
             <li>
-              <a href={`mailto:${contactInfo.email}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
+              <a href={`mailto:${contact.email}`} className="flex items-start gap-3 transition-colors hover:text-offwhite">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                {contactInfo.email}
+                {contact.email}
               </a>
             </li>
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-              <span>{contactInfo.address}</span>
+              <span>{contact.address}</span>
             </li>
             <li>
               <a
-                href={contactInfo.instagram}
+                href={contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-3 transition-colors hover:text-offwhite"
               >
                 <InstagramIcon className="mt-0.5 h-4 w-4 shrink-0" />
-                {contactInfo.instagramHandle}
+                {contact.instagramHandle}
               </a>
             </li>
           </ul>
@@ -112,9 +125,9 @@ export default function Footer() {
       <div className="border-t border-line">
         <div className="container-site flex flex-col items-center justify-between gap-3 py-6 text-xs text-muted sm:flex-row">
           <p>
-            © {currentYear} {companyInfo.name}. Tüm hakları saklıdır.
+            © {currentYear} {company.name}. {footer.copyrightSuffix}
           </p>
-          <p>Yatağan / Muğla</p>
+          <p>{company.location}</p>
         </div>
       </div>
     </footer>

@@ -7,8 +7,14 @@ export interface ProjectImage {
   objectPosition?: string;
 }
 
+export interface PageSeo {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
 export interface Project {
-  id: number;
+  id: string;
   slug: string;
   name: string;
   location: string;
@@ -24,10 +30,11 @@ export interface Project {
   area?: string;
   client?: string;
   featured?: boolean;
+  seo?: PageSeo;
 }
 
 export interface Service {
-  id: number;
+  id: string;
   slug: string;
   number: string;
   title: string;
@@ -36,7 +43,7 @@ export interface Service {
 }
 
 export interface Stat {
-  id: number;
+  id: string;
   value: string;
   label: string;
   isPlaceholder: boolean;

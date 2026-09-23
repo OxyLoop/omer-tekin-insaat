@@ -6,11 +6,21 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { getAssetPath } from "@/lib/paths";
-import { navLinks } from "./nav-links";
+import { buildNavLinks } from "./nav-links";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "@/components/theme/ThemeToggle";
+import type { NavLabels } from "@/lib/sanity/content";
+import type { ContactInfo } from "@/types";
 
-export default function Navbar() {
+interface NavbarProps {
+  nav: NavLabels;
+  contact: ContactInfo;
+  logoUrl?: string;
+  companyShortName?: string;
+}
+
+export default function Navbar({ nav, contact, logoUrl, companyShortName = "ÖMER TEKİN" }: NavbarProps) {
+  const navLinks = buildNavLinks(nav);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -41,6 +51,12 @@ export default function Navbar() {
   const solid = scrolled || menuOpen;
   const useFixedLightText = hasPhotoHero && !solid;
 
+  // Yönetim paneli (/admin) kendi tam ekran arayüzünü kullanır; herkese açık
+  // site navbar'ı orada gösterilmez.
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <>
       <header
@@ -64,7 +80,7 @@ export default function Navbar() {
           <Link href="/" className="relative z-10 flex items-center gap-3" aria-label="Ömer Tekin Mühendislik ve İnşaat - Ana Sayfa">
             <span className="flex h-10 w-10 items-center justify-center rounded-md bg-[#1a1b1e] p-1.5 sm:h-11 sm:w-11">
               <Image
-                src={getAssetPath("/logo.png")}
+                src={logoUrl || getAssetPath("/logo.png")}
                 alt="Ömer Tekin Mühendislik ve İnşaat logosu"
                 width={44}
                 height={44}
@@ -74,7 +90,7 @@ export default function Navbar() {
             </span>
             <span className="hidden flex-col leading-tight sm:flex">
               <span className={cn("text-sm font-semibold tracking-wide", useFixedLightText ? "text-on-ink" : "text-offwhite")}>
-                ÖMER TEKİN
+                {companyShortName}
               </span>
               <span className={cn("text-[10px] tracking-[0.2em] uppercase", useFixedLightText ? "text-on-ink-muted" : "text-muted")}>
                 Mühendislik | İnşaat
@@ -135,7 +151,7 @@ export default function Navbar() {
                   : "border-line-strong text-offwhite hover:border-offwhite",
               )}
             >
-              İletişime Geç
+              {nav.contactCta}
             </Link>
             <button
               type="button"
@@ -162,7 +178,13 @@ export default function Navbar() {
           </div>
         </nav>
       </header>
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} pathname={pathname} />
+      <MobileMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        pathname={pathname}
+        navLinks={navLinks}
+        contact={contact}
+      />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/motion/Reveal";
 import ServiceListItem from "@/components/sections/ServiceListItem";
-import { services } from "@/data/services";
+import { getServices } from "@/lib/sanity/content";
 
 export const metadata: Metadata = {
   title: "Hizmetlerimiz",
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     "Mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat & renovasyon hizmetlerimiz.",
 };
 
-export default function HizmetlerPage() {
+export default async function HizmetlerPage() {
+  const services = await getServices();
+
   return (
     <div>
       <section className="border-b border-line bg-charcoal-dark pt-36 pb-16 sm:pt-40 sm:pb-20">

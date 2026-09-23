@@ -2,16 +2,22 @@ import type { Metadata } from "next";
 import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
-import { aboutPage, companyValues, founder } from "@/data/company";
-import { aboutStats } from "@/data/stats";
+import { getAboutPage } from "@/lib/sanity/content";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda",
-  description:
-    "Ömer Tekin Mühendislik ve İnşaat'ın yaklaşımı, mühendislik disiplini ve kurumsal değerleri hakkında bilgi edinin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getAboutPage();
+  return {
+    title: seo.title || "Hakkımızda",
+    description:
+      seo.description ||
+      "Ömer Tekin Mühendislik ve İnşaat'ın yaklaşımı, mühendislik disiplini ve kurumsal değerleri hakkında bilgi edinin.",
+    openGraph: seo.ogImage ? { images: [seo.ogImage] } : undefined,
+  };
+}
 
-export default function HakkimizdaPage() {
+export default async function HakkimizdaPage() {
+  const page = await getAboutPage();
+
   return (
     <div>
       <section className="border-b border-line bg-charcoal-dark pt-36 pb-16 sm:pt-40 sm:pb-20">
@@ -21,10 +27,10 @@ export default function HakkimizdaPage() {
             Kurumsal
           </span>
           <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            {aboutPage.heroTitle}
+            {page.heroTitle}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            {aboutPage.heroSubtitle}
+            {page.heroSubtitle}
           </p>
         </div>
       </section>
@@ -32,9 +38,9 @@ export default function HakkimizdaPage() {
       <section className="section-y">
         <div className="container-site grid gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal>
-            <SectionHeading eyebrow="Yaklaşımımız" title={aboutPage.philosophyHeading} />
+            <SectionHeading eyebrow="Yaklaşımımız" title={page.philosophyHeading} />
             <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed text-muted sm:text-lg">
-              {aboutPage.philosophyBody.map((paragraph) => (
+              {page.philosophyBody.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
@@ -42,7 +48,7 @@ export default function HakkimizdaPage() {
           <Reveal delay={0.12}>
             <div className="relative aspect-4/5 w-full overflow-hidden border border-line lg:aspect-auto lg:h-full">
               <ImageWithFallback
-                src="/corporate-engineering.png"
+                src={page.philosophyImage}
                 alt="Ömer Tekin Mühendislik ve İnşaat logolu baret, inşaat sahasında proje çizimleriyle birlikte"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
@@ -54,22 +60,24 @@ export default function HakkimizdaPage() {
         </div>
       </section>
 
-      <section className="border-t border-y border-line bg-charcoal-dark">
-        <div className="container-site">
-          <div className="grid grid-cols-1 divide-y divide-line border-x border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            {aboutStats.map((stat, index) => (
-              <Reveal key={stat.id} delay={index * 0.08} className="px-8 py-12 text-center">
-                <p className="text-4xl font-semibold tracking-tight text-offwhite sm:text-5xl">
-                  {stat.value}
-                </p>
-                <p className="mt-3 text-xs tracking-[0.15em] text-muted uppercase sm:text-sm">
-                  {stat.label}
-                </p>
-              </Reveal>
-            ))}
+      {page.stats.show && page.stats.items.length > 0 && (
+        <section className="border-t border-y border-line bg-charcoal-dark">
+          <div className="container-site">
+            <div className="grid grid-cols-1 divide-y divide-line border-x border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {page.stats.items.map((stat, index) => (
+                <Reveal key={stat.id} delay={index * 0.08} className="px-8 py-12 text-center">
+                  <p className="text-4xl font-semibold tracking-tight text-offwhite sm:text-5xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-3 text-xs tracking-[0.15em] text-muted uppercase sm:text-sm">
+                    {stat.label}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="section-y">
         <div className="container-site">
@@ -80,13 +88,13 @@ export default function HakkimizdaPage() {
                   Yetkili Mühendis
                 </span>
                 <h3 className="mt-2 text-2xl font-semibold tracking-tight text-offwhite">
-                  {founder.name}
+                  {page.founder.name}
                 </h3>
-                <p className="mt-1 text-sm text-stone">{founder.title}</p>
-                <p className="mt-1 text-sm text-muted">{founder.education}</p>
+                <p className="mt-1 text-sm text-stone">{page.founder.title}</p>
+                <p className="mt-1 text-sm text-muted">{page.founder.education}</p>
               </div>
               <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                {founder.bio}
+                {page.founder.bio}
               </p>
             </div>
           </Reveal>
@@ -96,29 +104,31 @@ export default function HakkimizdaPage() {
       <section className="section-y">
         <div className="container-site">
           <Reveal>
-            <SectionHeading eyebrow="Mühendislik" title={aboutPage.engineeringHeading} className="max-w-3xl" />
+            <SectionHeading eyebrow="Mühendislik" title={page.engineeringHeading} className="max-w-3xl" />
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted sm:text-lg">
-              {aboutPage.engineeringBody}
+              {page.engineeringBody}
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="section-y border-t border-line bg-charcoal-dark">
-        <div className="container-site">
-          <SectionHeading eyebrow="Değerlerimiz" title="Bizi Tanımlayan İlkeler" align="center" className="mx-auto" />
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {companyValues.map((value, index) => (
-              <Reveal key={value.title} delay={index * 0.06} className="border border-line p-7">
-                <h3 className="text-lg font-semibold tracking-tight text-offwhite">
-                  {value.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{value.description}</p>
-              </Reveal>
-            ))}
+      {page.values.length > 0 && (
+        <section className="section-y border-t border-line bg-charcoal-dark">
+          <div className="container-site">
+            <SectionHeading eyebrow="Değerlerimiz" title="Bizi Tanımlayan İlkeler" align="center" className="mx-auto" />
+            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+              {page.values.map((value, index) => (
+                <Reveal key={value.title} delay={index * 0.06} className="border border-line p-7">
+                  <h3 className="text-lg font-semibold tracking-tight text-offwhite">
+                    {value.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{value.description}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

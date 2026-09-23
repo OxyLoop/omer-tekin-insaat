@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
-import { projects } from "@/data/projects";
+import { getProjects } from "@/lib/sanity/content";
 
 export const metadata: Metadata = {
   title: "Projelerimiz",
   description: "Tamamlanan ve devam eden projelerimizi keşfedin.",
 };
 
-export default function ProjelerPage() {
+export default async function ProjelerPage() {
+  const projects = await getProjects();
+
   return (
     <div>
       <section className="border-b border-line bg-charcoal-dark pt-36 pb-16 sm:pt-40 sm:pb-20">
