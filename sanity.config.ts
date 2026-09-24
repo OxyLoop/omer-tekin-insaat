@@ -24,9 +24,21 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 // tarafı yönlendiricisi, basePath'ini tarayıcının GERÇEK yoluyla
 // karşılaştırır; burası "/admin" olarak sabit kalırsa gerçek yol
 // "/omer-tekin-insaat/admin" ile eşleşmez ve Studio "Workspace not found"
-// hatası verir. Bu yüzden aynı NEXT_PUBLIC_BASE_PATH değeri (bkz.
-// lib/paths.ts) burada da eklenir.
-const basePath = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/admin`;
+// hatası verir.
+//
+// Bunu derleme zamanı NEXT_PUBLIC_BASE_PATH değişkeniyle sabit metin olarak
+// hesaplamak yerine ÇALIŞMA ZAMANINDA tarayıcının gerçek window.location
+// yolundan türetiyoruz: Next-Sanity/Turbopack'in Studio'yu dinamik olarak
+// böldüğü parçalarda derleme zamanı sabitleri her zaman aynı şekilde
+// gömülmeyebiliyor, ama window.location her zaman tutarlıdır.
+function resolveStudioBasePath(): string {
+  const marker = "/admin";
+  if (typeof window === "undefined") return marker;
+  const { pathname } = window.location;
+  const markerIndex = pathname.indexOf(marker);
+  return markerIndex >= 0 ? pathname.slice(0, markerIndex) + marker : marker;
+}
+const basePath = resolveStudioBasePath();
 
 export default defineConfig({
   name: "omer-tekin-admin",
