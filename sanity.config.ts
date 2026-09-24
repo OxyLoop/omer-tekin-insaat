@@ -19,12 +19,21 @@ import { structure } from "./sanity/structure";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder-project";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
+// GitHub Pages proje sitesi olarak barındırıldığında (ör. /omer-tekin-insaat)
+// Next.js'in basePath'i URL'nin başına eklenir. Studio'nun kendi istemci
+// tarafı yönlendiricisi, basePath'ini tarayıcının GERÇEK yoluyla
+// karşılaştırır; burası "/admin" olarak sabit kalırsa gerçek yol
+// "/omer-tekin-insaat/admin" ile eşleşmez ve Studio "Workspace not found"
+// hatası verir. Bu yüzden aynı NEXT_PUBLIC_BASE_PATH değeri (bkz.
+// lib/paths.ts) burada da eklenir.
+const basePath = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/admin`;
+
 export default defineConfig({
   name: "omer-tekin-admin",
   title: "Ömer Tekin Yönetim Paneli",
   projectId,
   dataset,
-  basePath: "/admin",
+  basePath,
   schema,
   plugins: [structureTool({ structure }), media()],
   document: {
