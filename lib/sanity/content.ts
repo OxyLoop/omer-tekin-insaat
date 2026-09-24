@@ -29,7 +29,6 @@ import { companyInfo as fallbackCompanyInfo, companyIntro as fallbackCompanyIntr
 import { homeStats as fallbackHomeStats, aboutStats as fallbackAboutStats } from "@/data/stats";
 import { services as fallbackServices } from "@/data/services";
 import { projects as fallbackProjects, getFeaturedProjects as fallbackGetFeaturedProjects, getProjectBySlug as fallbackGetProjectBySlug } from "@/data/projects";
-import { getAssetPath } from "@/lib/paths";
 
 /**
  * Bu dosya, herkese açık sitenin TEK içerik erişim katmanıdır. Bileşenler
@@ -63,7 +62,11 @@ function normalizeGalleryImage(
   fallbackAlt: string,
   objectPosition?: string,
 ) {
-  const src = imageUrl(image, 1600) ?? getAssetPath(fallbackSrc);
+  // Not: burada getAssetPath() KULLANILMAZ. Yedek yollar, ImageWithFallback
+  // bileşenine olduğu gibi (basePath eklenmeden) iletilir; basePath, o
+  // bileşen içinde TEK SEFERDE eklenir. Burada da eklenirse yol iki kez
+  // önekli olur (ör. /repo/repo/gorsel.png) ve görsel 404 verir.
+  const src = imageUrl(image, 1600) ?? fallbackSrc;
   return {
     src,
     alt: image?.alt || fallbackAlt,
@@ -224,7 +227,7 @@ export async function getHomePage(): Promise<HomePageContent> {
     subtitle:
       page?.heroSubtitle ||
       "Mühendislikten uygulamaya, projelerinizi güvenli ve nitelikli yapılara dönüştürüyoruz.",
-    image: imageUrl(page?.heroImage, 2000) ?? getAssetPath("/hero-project.png"),
+    image: imageUrl(page?.heroImage, 2000) ?? "/hero-project.png",
     ctaPrimaryLabel: page?.ctaPrimaryLabel || "Projelerimizi İnceleyin",
     ctaPrimaryLink: page?.ctaPrimaryLink || "/projeler",
     ctaSecondaryLabel: page?.ctaSecondaryLabel || "İletişime Geçin",
@@ -236,7 +239,7 @@ export async function getHomePage(): Promise<HomePageContent> {
     eyebrow: page?.aboutEyebrow || fallbackCompanyIntro.eyebrow,
     heading: page?.aboutHeading || fallbackCompanyIntro.heading,
     body: page?.aboutBody?.length ? page.aboutBody : fallbackCompanyIntro.body,
-    image: imageUrl(page?.aboutImage, 1600) ?? getAssetPath("/corporate-engineering.png"),
+    image: imageUrl(page?.aboutImage, 1600) ?? "/corporate-engineering.png",
   };
 
   const stats: StatsContent = {
@@ -252,7 +255,7 @@ export async function getHomePage(): Promise<HomePageContent> {
     body:
       page?.qualityBody ||
       "Projelerimizi planlama, teknik gereklilikler ve uygulama kalitesini birlikte değerlendirerek ele alıyoruz. Amacımız yalnızca yapı üretmek değil, güvenli ve uzun ömürlü yaşam alanları ortaya koymaktır.",
-    image: imageUrl(page?.qualityImage, 2000) ?? getAssetPath("/engineering-quality.png"),
+    image: imageUrl(page?.qualityImage, 2000) ?? "/engineering-quality.png",
   };
 
   const cta: CtaContent = {
@@ -300,7 +303,7 @@ export async function getAboutPage(): Promise<AboutPageContent> {
     heroSubtitle: page?.heroSubtitle || fallbackAboutPage.heroSubtitle,
     philosophyHeading: page?.philosophyHeading || fallbackAboutPage.philosophyHeading,
     philosophyBody: page?.philosophyBody?.length ? page.philosophyBody : fallbackAboutPage.philosophyBody,
-    philosophyImage: imageUrl(page?.philosophyImage, 1600) ?? getAssetPath("/corporate-engineering.png"),
+    philosophyImage: imageUrl(page?.philosophyImage, 1600) ?? "/corporate-engineering.png",
     stats: {
       show: Boolean(page?.showStats),
       items: page?.stats?.length
