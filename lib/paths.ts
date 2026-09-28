@@ -1,6 +1,12 @@
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export const siteUrl = "https://example.github.io"; // TODO: Replace with real production domain.
+// Yalnızca kök alan adı (origin) — proje yolu (basePath) DAHİL DEĞİLDİR.
+// Mutlak site URL'si gereken yerlerde her zaman `${siteUrl}${basePath}`
+// olarak birleştirilir (bkz. app/robots.ts, app/sitemap.ts) — böylece hem
+// kullanıcı sitesi (basePath boş) hem de proje sitesi (ör. /omer-tekin-insaat)
+// için doğru sonuç üretilir ve yol asla iki kez eklenmez.
+// Özel alan adı bağlandığında yalnızca bu değer güncellenmelidir.
+export const siteUrl = "https://oxyloop.github.io";
 
 /**
  * next/image ve next/link basePath'i otomatik ekler. Bu fonksiyon yalnızca

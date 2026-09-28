@@ -3,16 +3,14 @@ import { ContactInfo } from "@/types";
 const mapsQuery =
   "Konak Mahallesi Nevzat Özsoy Caddesi No:27/B Yatağan Muğla 48500";
 
-// Tüm iletişim bilgileri bu dosyadan yönetilir. Gerçek bilgiler netleştiğinde
-// yalnızca bu dosyayı güncellemeniz yeterlidir.
+// Tüm iletişim bilgileri bu dosyadan yönetilir. Sanity'de siteSettings
+// belgesindeki karşılık gelen alan boşsa buradaki gerçek bilgiler yedek
+// (fallback) olarak kullanılır.
 export const contactInfo: ContactInfo = {
-  // TODO: Replace with real company information.
-  phone: "+905XXXXXXXXX",
-  phoneDisplay: "+90 5XX XXX XX XX",
-  // TODO: Replace with real company information.
-  whatsapp: "905XXXXXXXXX",
-  // TODO: Replace with real company information.
-  email: "info@omertekin.com",
+  phone: "+905321390543",
+  phoneDisplay: "+90 532 139 05 43",
+  whatsapp: "905321390543",
+  email: "omertekinmuhendislik@gmail.com",
   instagram: "https://www.instagram.com/omertekinmuhendislik/",
   instagramHandle: "@omertekinmuhendislik",
   address: "Konak Mahallesi, Nevzat Özsoy Caddesi No:27/B, 48500 Yatağan / Muğla",

@@ -8,7 +8,7 @@ import StructuredData from "@/components/seo/StructuredData";
 import ThemeScript from "@/components/theme/ThemeScript";
 import { getServices } from "@/lib/sanity/content";
 import { getSiteSettings } from "@/lib/sanity/content";
-import { siteUrl, getAssetPath } from "@/lib/paths";
+import { siteUrl, basePath, getAssetPath } from "@/lib/paths";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -22,7 +22,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = seo.description || "";
 
   return {
-    metadataBase: new URL(siteUrl),
+    // GitHub Pages proje sitesi (basePath) dahil edilir, aksi halde göreli
+    // meta veri URL'leri (ör. basePath içermeyen bir OG görseli) kök alan
+    // adına göre çözümlenip yanlış (basePath'siz) bir adrese işaret eder.
+    metadataBase: new URL(`${siteUrl}${basePath}/`),
     title: {
       default: title,
       template: `%s | ${company.name}`,
@@ -31,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: siteUrl,
+      url: `${siteUrl}${basePath}`,
       siteName: company.name,
       locale: "tr_TR",
       type: "website",

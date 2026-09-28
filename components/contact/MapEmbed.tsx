@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface MapEmbedProps {
   mapsEmbedUrl: string;
   className?: string;
@@ -6,7 +8,11 @@ interface MapEmbedProps {
 
 export default function MapEmbed({ mapsEmbedUrl, className, title = "Konum haritası" }: MapEmbedProps) {
   return (
-    <div className={className}>
+    // min-w-0: <iframe> elementinin tarayıcı varsayılanı (300px) içeriği,
+    // bu div bir grid/flex öğesinin (dolaylı) alt öğesi olduğunda min-width:
+    // auto nedeniyle üst kapsayıcıyı dar ekranlarda (320-360px) taşırıyordu.
+    // min-w-0, bu içerik tabanlı minimum genişlik hesaplamasını burada keser.
+    <div className={cn("min-w-0", className)}>
       <iframe
         src={mapsEmbedUrl}
         title={title}

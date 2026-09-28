@@ -28,7 +28,6 @@ import { contactInfo as fallbackContactInfo } from "@/data/contact";
 import { companyInfo as fallbackCompanyInfo, companyIntro as fallbackCompanyIntro, aboutPage as fallbackAboutPage, companyValues as fallbackCompanyValues, founder as fallbackFounder } from "@/data/company";
 import { homeStats as fallbackHomeStats, aboutStats as fallbackAboutStats } from "@/data/stats";
 import { services as fallbackServices } from "@/data/services";
-import { projects as fallbackProjects, getFeaturedProjects as fallbackGetFeaturedProjects, getProjectBySlug as fallbackGetProjectBySlug } from "@/data/projects";
 
 /**
  * Bu dosya, herkese açık sitenin TEK içerik erişim katmanıdır. Bileşenler
@@ -378,26 +377,28 @@ function normalizeProject(project: SanityProject): Project {
   };
 }
 
+// Not: Projeler için yedek (fallback) içerik YOKTUR — Sanity, proje verisi
+// için TEK kaynaktır. Sanity'de henüz yayınlanmış proje yoksa (veya geçici
+// olarak erişilemiyorsa) bu fonksiyonlar boş dizi/undefined döner; arayüz
+// bileşenleri (FeaturedProjects, ProjectsExplorer, ProjectGallery) bunu
+// zaten uygun boş durumlarla (bölümü gizleyerek veya bir mesaj göstererek)
+// karşılar — sahte/örnek proje verisi asla üretilmez.
 export async function getProjects(): Promise<Project[]> {
   const projects = await safeFetch<SanityProject[]>(projectsQuery, undefined, "projects");
-  if (!projects || projects.length === 0) return fallbackProjects;
-  return projects.map(normalizeProject);
+  return (projects ?? []).map(normalizeProject);
 }
 
 export async function getFeaturedProjects(limit = 4): Promise<Project[]> {
   const projects = await safeFetch<SanityProject[]>(featuredProjectsQuery, { limit }, "featuredProjects");
-  if (!projects || projects.length === 0) return fallbackGetFeaturedProjects(limit);
-  return projects.map(normalizeProject);
+  return (projects ?? []).map(normalizeProject);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
   const project = await safeFetch<SanityProject>(projectBySlugQuery, { slug }, "projectBySlug");
-  if (!project) return fallbackGetProjectBySlug(slug);
-  return normalizeProject(project);
+  return project ? normalizeProject(project) : undefined;
 }
 
 export async function getProjectSlugs(): Promise<string[]> {
   const slugs = await safeFetch<Array<{ slug: string }>>(projectSlugsQuery, undefined, "projectSlugs");
-  if (!slugs || slugs.length === 0) return fallbackProjects.map((project) => project.slug);
-  return slugs.map((item) => item.slug).filter(Boolean);
+  return (slugs ?? []).map((item) => item.slug).filter(Boolean);
 }

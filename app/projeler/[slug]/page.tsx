@@ -14,6 +14,17 @@ interface ProjectPageProps {
 
 export async function generateStaticParams() {
   const slugs = await getProjectSlugs();
+
+  if (slugs.length === 0) {
+    // Statik export ("output: export"), her dinamik rota için build sırasında
+    // en az bir yol üretilmesini zorunlu kılar. Sanity'de henüz yayınlanmış
+    // proje yokken bunu karşılamak için gerçek bir projeyle eşleşmeyen bu
+    // yer tutucu slug kullanılır — getProjectBySlug() bunun için `undefined`
+    // döner ve sayfa normal 404'e düşer (bkz. aşağıdaki notFound() çağrısı);
+    // hiçbir yerden bağlantı verilmez, sahte bir proje sayfası OLUŞMAZ.
+    return [{ slug: "_placeholder" }];
+  }
+
   return slugs.map((slug) => ({ slug }));
 }
 

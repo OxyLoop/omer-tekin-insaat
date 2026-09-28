@@ -29,16 +29,16 @@ export default function ContactPreview({ contact }: ContactPreviewProps) {
         <SectionHeading eyebrow="İletişim" title="Bir Projeniz mi Var?" align="center" className="mx-auto max-w-2xl" />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          <Reveal>
+          <Reveal className="min-w-0">
             <div className="flex h-full flex-col justify-between gap-10 border border-line p-8 sm:p-10">
               <ul className="flex flex-col gap-6">
                 {items.map(({ icon: Icon, label, value, href }) => {
                   const content = (
                     <div className="flex items-start gap-4">
                       <Icon className="mt-1 h-5 w-5 shrink-0 text-muted" aria-hidden="true" />
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-xs tracking-[0.15em] text-muted uppercase">{label}</p>
-                        <p className="mt-1 text-base text-offwhite">{value}</p>
+                        <p className="mt-1 text-base break-words text-offwhite">{value}</p>
                       </div>
                     </div>
                   );
@@ -67,8 +67,8 @@ export default function ContactPreview({ contact }: ContactPreviewProps) {
             </div>
           </Reveal>
 
-          <Reveal delay={0.12}>
-            <div className="h-80 border border-line lg:h-full lg:min-h-[420px]">
+          <Reveal delay={0.12} className="min-w-0">
+            <div className="h-80 min-w-0 border border-line lg:h-full lg:min-h-[420px]">
               <MapEmbed mapsEmbedUrl={contact.mapsEmbedUrl} className="h-full w-full" />
             </div>
           </Reveal>

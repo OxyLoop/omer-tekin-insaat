@@ -1,5 +1,5 @@
 import type { SiteSettingsContent } from "@/lib/sanity/content";
-import { siteUrl } from "@/lib/paths";
+import { siteUrl, basePath } from "@/lib/paths";
 
 interface StructuredDataProps {
   settings: SiteSettingsContent;
@@ -8,12 +8,13 @@ interface StructuredDataProps {
 export default function StructuredData({ settings }: StructuredDataProps) {
   const { company, contact } = settings;
 
-  // TODO: Telefon bilgisi netleşince "telephone" alanı eklenebilir.
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     name: company.name,
-    url: siteUrl,
+    url: `${siteUrl}${basePath}`,
+    telephone: contact.phone,
+    email: contact.email,
     address: {
       "@type": "PostalAddress",
       streetAddress: contact.address,
