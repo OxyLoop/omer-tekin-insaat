@@ -268,8 +268,10 @@ ile gelir. Kurulum adımları:
 5. `main` dalına push yaptığınızda site otomatik olarak build edilip
    yayınlanır.
 
-İş akışı, deponuzun adını otomatik algılayarak doğru `NEXT_PUBLIC_BASE_PATH`
-değerini kendisi ayarlar (bkz. bölüm 9) — genellikle elle bir şey yapmanız
+Site, özel alan adı `https://omertekinmuhendislik.com` kökünden yayınlanır;
+iş akışı bu yüzden `NEXT_PUBLIC_BASE_PATH` değerini boş olarak ayarlar (bkz.
+bölüm 9). Özel alan adı **Settings → Pages → Custom domain** kısmında
+tanımlıdır; GitHub Actions ile yayınlandığı için ayrı bir `CNAME` dosyası
 gerekmez.
 
 ## 8. İçerik Değiştiğinde Otomatik Yayınlama (Webhook)
@@ -327,9 +329,12 @@ GitHub Pages, bir siteyi iki şekilde yayınlayabilir:
 - **Proje sitesi:** `kullaniciadi.github.io/repo-adi` → `NEXT_PUBLIC_BASE_PATH`
   değeri `/repo-adi` olmalıdır.
 
-`.github/workflows/deploy.yml` içindeki iş akışı bu ayrımı depo adına bakarak
-otomatik yapar; repo adı `.github.io` ile bitmiyorsa `/repo-adi` değerini
-otomatik ekler.
+Özel alan adı kullanıldığında site kök adresten yayınlanır ve
+`NEXT_PUBLIC_BASE_PATH` **boş** olmalıdır. Bu proje
+`omertekinmuhendislik.com` alan adını kullandığından
+`.github/workflows/deploy.yml` bu değeri boş olarak ayarlar. Mutlak site
+adresi (sitemap, robots, canonical, OpenGraph, JSON-LD) `lib/paths.ts`
+içindeki `siteUrl` değerinden gelir.
 
 ## 10. /admin Erişimi ve Güvenlik
 

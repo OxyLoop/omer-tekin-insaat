@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
 import AboutPreview from "@/components/sections/AboutPreview";
 import Stats from "@/components/sections/Stats";
@@ -7,6 +8,10 @@ import QualityStatement from "@/components/sections/QualityStatement";
 import CTASection from "@/components/sections/CTASection";
 import ContactPreview from "@/components/sections/ContactPreview";
 import { getFeaturedProjects, getHomePage, getServices, getSiteSettings } from "@/lib/sanity/content";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const [homePage, services, featuredProjects, settings] = await Promise.all([

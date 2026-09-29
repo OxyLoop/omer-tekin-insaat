@@ -22,9 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = seo.description || "";
 
   return {
-    // GitHub Pages proje sitesi (basePath) dahil edilir, aksi halde göreli
-    // meta veri URL'leri (ör. basePath içermeyen bir OG görseli) kök alan
-    // adına göre çözümlenip yanlış (basePath'siz) bir adrese işaret eder.
+    // basePath (varsa) dahil edilir; göreli meta veri URL'leri (canonical,
+    // OG görselleri) bu adrese göre mutlak URL'ye çözümlenir.
     metadataBase: new URL(`${siteUrl}${basePath}/`),
     title: {
       default: title,

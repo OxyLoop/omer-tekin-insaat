@@ -3,6 +3,7 @@ import Reveal from "@/components/motion/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageWithFallback from "@/components/ui/ImageWithFallback";
 import { getAboutPage } from "@/lib/sanity/content";
+import { pageOpenGraph } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = await getAboutPage();
@@ -11,7 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       seo.description ||
       "Ömer Tekin Mühendislik ve İnşaat'ın yaklaşımı, mühendislik disiplini ve kurumsal değerleri hakkında bilgi edinin.",
-    openGraph: seo.ogImage ? { images: [seo.ogImage] } : undefined,
+    alternates: { canonical: "/hakkimizda" },
+    openGraph: await pageOpenGraph("/hakkimizda", seo.ogImage ? { images: [seo.ogImage] } : {}),
   };
 }
 

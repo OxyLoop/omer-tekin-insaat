@@ -7,6 +7,7 @@ import ProjectGallery from "@/components/projects/ProjectGallery";
 import Reveal from "@/components/motion/Reveal";
 import { getProjectBySlug, getProjectSlugs } from "@/lib/sanity/content";
 import { statusLabels } from "@/lib/project-status";
+import { pageOpenGraph } from "@/lib/seo";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -35,7 +36,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   return {
     title: project.seo?.title || project.name,
     description: project.seo?.description || project.summary,
-    openGraph: project.seo?.ogImage ? { images: [project.seo.ogImage] } : undefined,
+    alternates: { canonical: `/projeler/${slug}` },
+    openGraph: await pageOpenGraph(
+      `/projeler/${slug}`,
+      project.seo?.ogImage ? { images: [project.seo.ogImage] } : {},
+    ),
   };
 }
 

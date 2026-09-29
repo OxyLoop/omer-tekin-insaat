@@ -5,8 +5,8 @@ export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 // olarak birleştirilir (bkz. app/robots.ts, app/sitemap.ts) — böylece hem
 // kullanıcı sitesi (basePath boş) hem de proje sitesi (ör. /omer-tekin-insaat)
 // için doğru sonuç üretilir ve yol asla iki kez eklenmez.
-// Özel alan adı bağlandığında yalnızca bu değer güncellenmelidir.
-export const siteUrl = "https://oxyloop.github.io";
+// Site, özel alan adının kökünden yayınlanır (basePath boş).
+export const siteUrl = "https://omertekinmuhendislik.com";
 
 /**
  * next/image ve next/link basePath'i otomatik ekler. Bu fonksiyon yalnızca

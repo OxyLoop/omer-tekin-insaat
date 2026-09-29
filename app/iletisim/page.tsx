@@ -6,12 +6,17 @@ import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
 import { getWhatsAppLink } from "@/data/contact";
 import { getSiteSettings } from "@/lib/sanity/content";
+import { pageOpenGraph } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "İletişim",
-  description:
-    "Projeleriniz ve mühendislik ihtiyaçlarınız için Ömer Tekin Mühendislik ve İnşaat ile iletişime geçin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "İletişim",
+    description:
+      "Projeleriniz ve mühendislik ihtiyaçlarınız için Ömer Tekin Mühendislik ve İnşaat ile iletişime geçin.",
+    alternates: { canonical: "/iletisim" },
+    openGraph: await pageOpenGraph("/iletisim"),
+  };
+}
 
 export default async function IletisimPage() {
   const { contact } = await getSiteSettings();

@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import Reveal from "@/components/motion/Reveal";
 import ServiceListItem from "@/components/sections/ServiceListItem";
 import { getServices } from "@/lib/sanity/content";
+import { pageOpenGraph } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Hizmetlerimiz",
-  description:
-    "Mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat & renovasyon hizmetlerimiz.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Hizmetlerimiz",
+    description:
+      "Mühendislik, müteahhitlik, kat karşılığı inşaat, anahtar teslim proje ve tadilat & renovasyon hizmetlerimiz.",
+    alternates: { canonical: "/hizmetler" },
+    openGraph: await pageOpenGraph("/hizmetler"),
+  };
+}
 
 export default async function HizmetlerPage() {
   const services = await getServices();

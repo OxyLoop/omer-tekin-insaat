@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import ProjectsExplorer from "@/components/projects/ProjectsExplorer";
 import { getProjects } from "@/lib/sanity/content";
+import { pageOpenGraph } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Projelerimiz",
-  description: "Tamamlanan ve devam eden projelerimizi keşfedin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Projelerimiz",
+    description: "Tamamlanan ve devam eden projelerimizi keşfedin.",
+    alternates: { canonical: "/projeler" },
+    openGraph: await pageOpenGraph("/projeler"),
+  };
+}
 
 export default async function ProjelerPage() {
   const projects = await getProjects();

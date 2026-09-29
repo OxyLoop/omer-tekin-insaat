@@ -7,7 +7,9 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = `${siteUrl}${basePath}`;
 
-  const staticRoutes = ["", "/hakkimizda", "/hizmetler", "/projeler", "/iletisim"].map(
+  // next.config.ts'de trailingSlash: true olduğundan sayfalar "/yol/" olarak
+  // yayınlanır; canonical etiketleriyle aynı olması için URL'ler "/" ile biter.
+  const staticRoutes = ["/", "/hakkimizda/", "/hizmetler/", "/projeler/", "/iletisim/"].map(
     (path) => ({
       url: `${base}${path}`,
       lastModified: new Date(),
@@ -16,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const slugs = await getProjectSlugs();
   const projectRoutes = slugs.map((slug) => ({
-    url: `${base}/projeler/${slug}`,
+    url: `${base}/projeler/${slug}/`,
     lastModified: new Date(),
   }));
 
