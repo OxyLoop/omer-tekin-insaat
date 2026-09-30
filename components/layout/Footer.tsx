@@ -130,6 +130,22 @@ export default function Footer({ settings, services }: FooterProps) {
           <p>{company.location}</p>
         </div>
       </div>
+
+      <div className="border-t border-line">
+        <div className="container-site py-4 text-center text-[11px] text-muted">
+          <p>
+            Designed &amp; Developed by{" "}
+            <a
+              href="https://www.linkedin.com/in/arda-sari"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted transition-colors hover:text-offwhite"
+            >
+              Arda Sarı ↗
+            </a>
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }
